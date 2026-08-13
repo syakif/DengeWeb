@@ -29,7 +29,10 @@ public class HomeController : Controller
             HeaderSubtitle = _config["AboutPageContent:HeaderSubtitle"],
             MissionTitle = _config["AboutPageContent:MissionTitle"],
             MissionText = _config["AboutPageContent:MissionText"],
-            MissionImage = _config["AboutPageContent:MissionImage"]
+            MissionImage = _config["AboutPageContent:MissionImage"],
+            EthicsTitle = _config["AboutPageContent:EthicsTitle"],
+            EthicsText = _config["AboutPageContent:EthicsText"],
+            EthicsImage = _config["AboutPageContent:EthicsImage"]
         };
 
         // Modeli sayfaya (View) gönderiyoruz
@@ -40,9 +43,9 @@ public class HomeController : Controller
     {
         var products = new List<ProductViewModel>
         {
-            new ProductViewModel { Id = 1, Name = "Taktik İHA X-1", Description = "Gelişmiş keşif ve gözetleme sistemleri.", ImageUrl = "https://via.placeholder.com/300x200?text=IHA" },
-            new ProductViewModel { Id = 2, Name = "Zırhlı Personel Taşıyıcı", Description = "Yüksek balistik koruma ve arazi kabiliyeti.", ImageUrl = "https://via.placeholder.com/300x200?text=ZPT" },
-            new ProductViewModel { Id = 3, Name = "Haberleşme Sistemleri", Description = "Kriptolu askeri haberleşme altyapısı.", ImageUrl = "https://via.placeholder.com/300x200?text=Radar" }
+            new ProductViewModel { Id = 1, Name = "Taktik İHA X-1", Description = "Gelişmiş keşif ve gözetleme sistemleri.", ImageUrl = "/images/Patroller-IHA.jpg" },
+            new ProductViewModel { Id = 2, Name = "Zırhlı Personel Taşıyıcı", Description = "Yüksek balistik koruma ve arazi kabiliyeti.", ImageUrl = "/images/GelkcEyWgAATVpF-aspect-ratio-1280-720.webp" },
+            new ProductViewModel { Id = 3, Name = "Haberleşme Sistemleri", Description = "Kriptografik askeri haberleşme altyapısı.", ImageUrl = "/images/images.jpg" }
         };
         return View(products);
     }

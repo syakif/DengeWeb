@@ -1,3 +1,4 @@
+@model DengeWeb.Models.AboutViewModel
 @{ ViewData["Title"] = "Hakkımızda"; }
 
 <div class="container my-5">
@@ -5,34 +6,29 @@
     <!-- Giriş Kısmı -->
     <div class="row mb-5">
         <div class="col-12 text-center">
-            <h2 class="fw-bold" style="color: #001f54;">Hakkımızda</h2>
+            <h2 class="fw-bold" style="color: #001f54;">@Model.HeaderTitle</h2>
             <hr class="w-25 mx-auto" style="border-top: 3px solid #0d6efd;">
-            <p class="lead mt-4 text-muted">Denge Elektronik 1998 yılından bugüne tecrübesi ve edindiği birikimi ile güvenlik ve haberleşme teknolojileri alanında hizmet vermektedir. Yeni gelişmeleri sürekli takip eden Denge Elektronik ürün yelpazesini bu doğrultuda genişletmekte ve hizmet verdiği kuruluşlara değer katmaya devam etmektedir.
-
-Denge Grup Markalarından olan PowerGuard ile X-Ray ve Metal Kapı Dedektörleri için, Set Bariyer markası ile Çevre Güvenlik Bariyerleri için, Hytera Türkiye Distribütörlüğü ile Telsiz ve Haberleşme Teknolojileri için hizmet sunmakta ve liderliğindeki yerini pekiştirmektedir.
-
-Türkiye’nin önde gelen proje, yatırım ve organizasyonlarında güvenilir bir çözüm ortağı olan Denge Elektronik bu etkinliklerde A’dan Z’ye Güvenlik ve Haberleşme Çözüm Süreçlerini Yönetmektedir.</p>
+            <p class="lead mt-4 text-muted">@Model.HeaderSubtitle</p>
         </div>
     </div>
 
     <!-- Misyon ve Vizyon Bölümü -->
     <div class="row align-items-center mb-5 mt-4">
         <div class="col-md-7 pe-md-5">
-            <h3 class="fw-bold mb-3" style="color: #001f54;">Misyonumuz ve Vizyonumuz</h3>
-            <p>Rekabetçi piyasada saygın bir konuma ulaşmanın temelinde hız, tutarlılık ve yüksek kalite yatmaktadır. "İnsan için Teknoloji" felsefemizle hem ekibimizin hem de müşterilerimizin beklentilerini en üst düzeyde karşılamayı amaçlıyoruz. Bilgi ve eğitime dayalı altyapımız sayesinde üreten, geliştiren ve araştıran kadromuzu sürekli teşvik ediyoruz. Gelecekteki en büyük hedefimiz, güvenlik ve haberleşme alanlarında sektör öncüsü olmak, değişen dinamikleri fırsata çevirerek köklü geçmişimizden aldığımız ilhamla markamızı daima ileriye taşımaktır.</p>
+            <h3 class="fw-bold mb-3" style="color: #001f54;">@Model.MissionTitle</h3>
+            <p>@Model.MissionText</p>
         </div>
         <div class="col-md-5 mt-4 mt-md-0">
             <!-- Görsel 1 Placeholder -->
-            <img src="[https://via.placeholder.com/600x400?text=Misyon+ve+Vizyon](https://via.placeholder.com/600x400?text=Misyon+ve+Vizyon)" class="img-fluid rounded shadow-sm" alt="Misyon ve Vizyon">
+            <img src="@Model.MissionImage" class="img-fluid rounded shadow navy-frame" alt="Misyon ve Vizyon">
         </div>
     </div>
 
     <!-- Etik Yaklaşımımız Bölümü -->
     <div class="row mb-5 bg-light py-5 px-3 rounded">
         <div class="col-12">
-            <h3 class="fw-bold mb-4" style="color: #001f54;">Etik Yaklaşımımız</h3>
-            <p>Denge Elektronik olarak, tarafı olduğumuz uluslararası sözleşmelerin çalışan ve insan hakları prensiplerine sıkı sıkıya bağlıyız ve bu süreçleri bağımsız denetimlere tabi tutuyoruz. Denge Grubu çatısı altında Birleşmiş Milletler Küresel İlkeler Sözleşmesi'nin imzacısı olarak, sürdürülebilirlik hedeflerimizi tüm paydaşlarımızla şeffafça paylaşıyoruz. </p>
-            <p>Kurumsal başarımızın yetkin profesyonellerimizin omuzlarında yükseldiğinin bilinciyle, onlara huzurlu ve gelişime açık bir çalışma iklimi sunmayı en büyük sorumluluğumuz kabul ediyoruz. Kurucumuz Nurettin Erzurum'un vizyonuyla şekillenen ve Yönetim Kurulu tarafından desteklenen etik kurallarımız, şirket bünyesindeki Etik Kurul vasıtasıyla titizlikle yürütülmektedir.</p>
+            <h3 class="fw-bold mb-4" style="color: #001f54;">@Model.EthicsTitle</h3>
+            <p>@Model.EthicsText</p>
         </div>
     </div>
 
@@ -41,7 +37,7 @@ Türkiye’nin önde gelen proje, yatırım ve organizasyonlarında güvenilir b
         <!-- Bootstrap 'order' class'ları mobilde resmi üste, yazıyı alta alır. Masaüstünde resim solda kalır. -->
         <div class="col-md-5 order-2 order-md-1 mt-4 mt-md-0">
              <!-- Görsel 2 Placeholder -->
-             <img src="[https://via.placeholder.com/600x400?text=Kurumsal+Degerlerimiz](https://via.placeholder.com/600x400?text=Kurumsal+Degerlerimiz)" class="img-fluid rounded shadow-sm" alt="Değerlerimiz">
+             <img src="/images/denge-elektronik-vizyonumuz.jpg.webp" class="img-fluid rounded shadow navy-frame" alt="Değerlerimiz">
         </div>
         <div class="col-md-7 order-1 order-md-2 ps-md-5">
             <h3 class="fw-bold mb-4" style="color: #001f54;">Değerlerimiz</h3>
