@@ -100,3 +100,4 @@ C:\Users\Administrator.MSTPC\Desktop\Projects\DengeWeb\obj\Debug\net10.0\refint\
 C:\Users\Administrator.MSTPC\Desktop\Projects\DengeWeb\obj\Debug\net10.0\DengeWeb.pdb
 C:\Users\Administrator.MSTPC\Desktop\Projects\DengeWeb\obj\Debug\net10.0\DengeWeb.genruntimeconfig.cache
 C:\Users\Administrator.MSTPC\Desktop\Projects\DengeWeb\obj\Debug\net10.0\ref\DengeWeb.dll
+C:\Users\Administrator.MSTPC\Desktop\Projects\DengeWeb\obj\Debug\net10.0\DengeWeb.sourcelink.json
