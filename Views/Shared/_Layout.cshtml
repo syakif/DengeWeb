@@ -96,14 +96,64 @@
             padding: 3px; /* Çerçeve ile resim arasında ince, şık bir beyaz boşluk bırakır */
             background-color: #ffffff;
         }
+
+        /* Üst Menü Lacivert Arka Plan */
+        .custom-navbar {
+            background: linear-gradient(135deg, #000428 0%, #001f54 100%);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.05); /* Altına çok hafif bir çizgi */
+        }
+
+        /* Üst Menü Logo Ayarları */
+        .navbar-brand img {
+            height: 48px; /* Logonun yüksekliği, duruma göre artırıp azaltabilirsin */
+            margin-right: 12px; /* Logo ile yazı arasındaki boşluk */
+            object-fit: contain;
+        }
+
+        /* Metalik Yazı Efekti */
+.metallic-text {
+    font-family: "Arial Black", "Impact", sans-serif; /* Keskin, kalın ve köşeli bir font */
+    font-style: italic; /* Logodaki gibi yatık (italik) görünüm */
+    font-weight: 900;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    margin-bottom: 0;
+
+    /* Gümüş / Çelik Yansıma Efekti (Degrade) */
+    background: linear-gradient(
+        to bottom,
+        #f8f9fa 0%,    /* En üstteki parlak ışık */
+        #c2c2c3 35%,   /* Ortaya doğru koyulaşan gri */
+        #c1c2c2 50%,   /* Logodaki keskin koyu çukur çizgisi */
+        #c3c3c3 65%,   /* Tekrar aydınlanan alt kısım */
+        #d1d5d8 100%   /* En alt metalik yansıma */
+    );
+    
+    /* Arka planı yazının içine hapsetme */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent; /* Yedek olarak */
+    
+    /* Yazının logodaki gibi 3 boyutlu durması için alt gölge (drop-shadow) */
+    filter: drop-shadow(2px 3px 3px rgba(0, 0, 0, 0.8));
+}
     </style>
 </head>
 <!-- Sayfanın her zaman tam ekran yüksekliğinde olmasını sağlayan flex sınıfları -->
 <body class="d-flex flex-column min-vh-100">
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <!-- bg-dark yerine custom-navbar ekledik, shadow-sm ile hafif gölge verdik -->
+        <nav class="navbar navbar-expand-lg navbar-dark custom-navbar shadow-sm">
             <div class="container">
-                <a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Index">DENGE DEFENCE</a>
+                <!-- d-flex ve align-items-center ile logo ve yazıyı kusursuz ortaladık -->
+                <a class="navbar-brand fw-bold d-flex align-items-center" asp-controller="Home" asp-action="Index">
+                    <!-- Logomuz -->
+                    <img src="/images/ddlogo.png" alt="Denge Defence Logo">
+    
+                    <!-- Metalik Yazımız -->
+                    <span class="metallic-text">DENGE DEFENCE</span>
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
