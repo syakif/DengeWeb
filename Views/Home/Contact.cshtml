@@ -1,0 +1,54 @@
+@model DengeWeb.Models.ContactViewModel
+@{ ViewData["Title"] = "İletişim"; }
+
+<h2>İletişim & Teklif İste</h2>
+<hr />
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<div class="row mt-4">
+    <div class="col-md-6 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h4 class="card-title mb-4">Bize Ulaşın</h4>
+                <p><strong>Adres:</strong> Küçükbakkalköy, İstanbul</p>
+                <p><strong>Telefon:</strong> +90 (216) 555 00 00</p>
+                <p><strong>E-Posta:</strong> info@dengedefence.com.tr</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h4 class="card-title mb-4">Teklif Ver / Bilgi İste</h4>
+                <form asp-action="Contact" method="post">
+                    <div class="mb-3">
+                        <label asp-for="FullName" class="form-label">Ad Soyad</label>
+                        <input asp-for="FullName" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label">E-Posta</label>
+                        <input asp-for="Email" type="email" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Subject" class="form-label">Konu</label>
+                        <input asp-for="Subject" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Message" class="form-label">Mesajınız</label>
+                        <textarea asp-for="Message" class="form-control" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-dark w-100">Gönder</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

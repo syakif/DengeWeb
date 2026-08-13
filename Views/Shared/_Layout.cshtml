@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Denge Defence</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome (Sosyal Medya İkonları İçin) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Tasarıma Özel Koyu Mavi Degrade Arka Plan */
+        .custom-footer {
+    background: linear-gradient(135deg, #000428 0%, #001f54 100%);
+    color: #ffffff;
+    padding-top: 2rem;
+    padding-bottom: 0.8rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.custom-footer .row {
+    margin-bottom: 0;
+}
+
+.custom-footer h6 {
+    margin-bottom: 0.8rem !important;
+}
+
+.custom-footer ul {
+    margin-bottom: 0;
+}
+
+.custom-footer li {
+    margin-bottom: 0.4rem !important;
+}
+
+.custom-footer .mt-4,
+.custom-footer .mt-md-5,
+.custom-footer .pt-3 {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.9rem 0;
+    margin-top: 1rem;
+}
+
+.custom-footer a,
+.custom-footer a:visited,
+.custom-footer a:active {
+    color: #d2d2d2 !important;
+    text-decoration: none;
+}
+
+.custom-footer a:hover {
+    color: #a4a4a5 !important;
+    text-decoration: none;
+}
+
+        /* Sosyal Medya Yuvarlak Buton Tasarımı */
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            margin-left: 0.5rem;
+            transition: background 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .dng-logo {
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+        }
+        
+        .dng-highlight {
+            background-color: #0d6efd;
+            padding: 0 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<!-- Sayfanın her zaman tam ekran yüksekliğinde olmasını sağlayan flex sınıfları -->
+<body class="d-flex flex-column min-vh-100">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Index">DENGE DEFENCE</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Anasayfa</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="About">Hakkımızda</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Products">Ürünlerimiz</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Contact">İletişim</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Ana İçerik Alanı -->
+    <div class="container mt-5 mb-5">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- mt-auto sınıfı, sayfa içeriği kısa olsa bile bu alanı en aşağıya iter -->
+    <footer class="custom-footer mt-auto">
+        <div class="container">
+            <div class="row">
+                
+                <!-- 1. Kolon: Logo ve Slogan -->
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <div class="fw-bold dng-logo mb-3">
+                        <span class="dng-highlight">D</span><span class="dng-highlight ms-1">N</span><span class="dng-highlight ms-1">G</span>
+                    </div>
+                    <p class="mt-4 mt-md-5 pt-3">
+                        <span class="dng-highlight py-1 px-2" style="font-size: 0.9rem;">BirlikteGeleceğeGüvenle</span>
+                    </p>
+                </div>
+
+                <!-- 2. Kolon: Hızlı Menü -->
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h6 class="fw-bold mb-4 text-white">Hızlı Menü</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-3"><a asp-controller="Home" asp-action="About">Hakkımızda</a></li>
+                        <li class="mb-3"><a asp-controller="Home" asp-action="Products">Ürünlerimiz</a></li>
+                        <li class="mb-3"><a href="#">Reviews</a></li>
+                        <li class="mb-3"><a href="#">Pricing</a></li>
+                    </ul>
+                </div>
+
+                <!-- 3. Kolon: BİZ -->
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h6 class="fw-bold mb-4 text-white">BİZ</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-3"><a href="#">FAQ</a></li>
+                        <li class="mb-3"><a asp-controller="Home" asp-action="Contact">İletişim</a></li>
+                        <li class="mb-3"><a href="#">Terms & Condition</a></li>
+                        <li class="mb-3"><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <!-- 4. Kolon: İletişim Bilgileri -->
+                <div class="col-md-3">
+                    <h6 class="fw-bold mb-4 text-white">İLETİŞİM</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-3 text-light" style="font-size: 0.95rem;">PZT- CMT : 8:45 - 18:30</li>
+                        <li class="mb-4 text-white fw-bold" style="font-size: 1.05rem;">Küçükbakkalköy, İstanbul</li>
+                        <li class="mb-1 text-light" style="font-size: 0.85rem; letter-spacing: 1px;">MAİL</li>
+                        <li><a href="mailto:iletisim@dengedefence.com">iletisim@dengedefence.com</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Alt Çizgi ve Telif / Sosyal Medya İkonları -->
+            <div class="row footer-bottom align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <small style="color: #aeb5c5;">© Copyright 2026 Denge Defence. All rights reserved.</small>
+                </div>
+                <div class="col-md-6 text-center text-md-end social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

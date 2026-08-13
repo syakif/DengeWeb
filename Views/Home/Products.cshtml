@@ -1,0 +1,22 @@
+@model List<DengeWeb.Models.ProductViewModel>
+@{ ViewData["Title"] = "Ürünlerimiz"; }
+
+<h2>Ürünlerimiz</h2>
+<hr />
+<div class="row mt-4">
+    @foreach (var urun in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                <img src="@urun.ImageUrl" class="card-img-top" alt="@urun.Name">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">@urun.Name</h5>
+                    <p class="card-text">@urun.Description</p>
+                </div>
+                <div class="card-footer bg-white border-top-0">
+                    <a asp-action="Contact" class="btn btn-outline-dark w-100">Bilgi İste</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
