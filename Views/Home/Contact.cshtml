@@ -15,38 +15,62 @@
 
 <div class="row mt-4">
     <div class="col-md-6 mb-4">
-        <div class="card shadow-sm">
+        <!-- İletişim Bilgileri Kartı -->
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
                 <h4 class="card-title mb-4">Bize Ulaşın</h4>
-                <p><strong>Adres:</strong> Küçükbakkalköy, İstanbul</p>
-                <p><strong>Telefon:</strong> +90 (216) 555 00 00</p>
+                <p><strong>Adres:</strong> Küçükbakkalköy Mah. Derebey Sk. No: 6 34750 Ataşehir/İstanbul</p>
+                <p><strong>Telefon:</strong> +90 (216) 573 40 40</p>
                 <p><strong>E-Posta:</strong> info@dengedefence.com.tr</p>
+            </div>
+        </div>
+
+        <!-- Google Haritalar Kartı -->
+        <div class="card shadow-sm">
+            <div class="card-body p-0">
+                <!-- iframe içine Küçükbakkalköy, İstanbul koordinatları eklenmiştir -->
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d188.24509594838628!2d29.109954082124176!3d40.98319896401035!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cac63b879c3587%3A0x63c0c8c1ae455ae9!2zS8O8w6fDvGtiYWtrYWxrw7Z5LCBEZXJlYmV5IFNvay4gTm86NiwgMzQ3NTAgQXRhxZ9laGlyL8Swc3RhbmJ1bA!5e0!3m2!1str!2str!4v1786694668171!5m2!1str!2str" 
+                    width="100%" 
+                    height="400" 
+                    style="border:0; border-radius: 0.375rem;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
             </div>
         </div>
     </div>
     
-    <div class="col-md-6">
-        <div class="card shadow-sm">
-            <div class="card-body">
+    <div class="col-md-6 mb-4">
+        <!-- h-100 sınıfı ile kartın yüksekliğini sol kolonla eşitliyoruz -->
+        <div class="card shadow-sm h-100">
+            <div class="card-body d-flex flex-column">
                 <h4 class="card-title mb-4">Teklif Ver / Bilgi İste</h4>
-                <form asp-action="Contact" method="post">
+            
+                <form method="post" asp-action="Contact" class="d-flex flex-column flex-grow-1">
                     <div class="mb-3">
-                        <label asp-for="FullName" class="form-label">Ad Soyad</label>
-                        <input asp-for="FullName" class="form-control" required />
+                        <label class="form-label text-muted">Ad Soyad</label>
+                        <input type="text" class="form-control" name="FullName" required>
                     </div>
                     <div class="mb-3">
-                        <label asp-for="Email" class="form-label">E-Posta</label>
-                        <input asp-for="Email" type="email" class="form-control" required />
+                        <label class="form-label text-muted">E-Posta</label>
+                        <input type="email" class="form-control" name="Email" required>
                     </div>
                     <div class="mb-3">
-                        <label asp-for="Subject" class="form-label">Konu</label>
-                        <input asp-for="Subject" class="form-control" required />
+                        <label class="form-label text-muted">Konu</label>
+                        <input type="text" class="form-control" name="Subject" required>
                     </div>
-                    <div class="mb-3">
-                        <label asp-for="Message" class="form-label">Mesajınız</label>
-                        <textarea asp-for="Message" class="form-control" rows="4" required></textarea>
+                
+                    <!-- flex-grow-1 ile bu mesaj alanının kalan tüm boşluğu yutmasını sağlıyoruz -->
+                    <div class="mb-3 flex-grow-1 d-flex flex-column">
+                        <label class="form-label text-muted">Mesajınız</label>
+                        <!-- rows="6" ile varsayılan boyunu artırdık, flex-grow-1 ile de esnek bıraktık -->
+                        <textarea class="form-control flex-grow-1" name="Message" rows="6" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-dark w-100">Gönder</button>
+                
+                    <!-- mt-auto butonu her zaman en alta iter -->
+                    <button type="submit" class="btn btn-dark w-100 mt-auto py-2">Gönder</button>
                 </form>
             </div>
         </div>

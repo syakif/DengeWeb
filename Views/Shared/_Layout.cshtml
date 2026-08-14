@@ -3,7 +3,17 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Denge Defence</title>
+    <title>@ViewData["Title"]  Denge Defence</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] | Denge Defence</title>
+    
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="/images/ddlogo.png">
+
+    <!-- AOS (Animate On Scroll) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -13,7 +23,7 @@
     <style>
         /* Tasarıma Özel Koyu Mavi Degrade Arka Plan */
         .custom-footer {
-    background: linear-gradient(135deg, #000428 0%, #001f54 100%);
+    background: linear-gradient(135deg, #010846 0%, #023080 100%);
     color: #ffffff;
     padding-top: 2rem;
     padding-bottom: 0.8rem;
@@ -99,13 +109,13 @@
 
         /* Üst Menü Lacivert Arka Plan */
         .custom-navbar {
-            background: linear-gradient(135deg, #000428 0%, #001f54 100%);
+            background: linear-gradient(135deg, #010846 0%, #012157 100%);
             border-bottom: 2px solid rgba(255, 255, 255, 0.05); /* Altına çok hafif bir çizgi */
         }
 
         /* Üst Menü Logo Ayarları */
         .navbar-brand img {
-            height: 48px; /* Logonun yüksekliği, duruma göre artırıp azaltabilirsin */
+            height: 40px; /* Logonun yüksekliği, duruma göre artırıp azaltabilirsin */
             margin-right: 12px; /* Logo ile yazı arasındaki boşluk */
             object-fit: contain;
         }
@@ -137,6 +147,21 @@
     
     /* Yazının logodaki gibi 3 boyutlu durması için alt gölge (drop-shadow) */
     filter: drop-shadow(2px 3px 3px rgba(0, 0, 0, 0.8));
+}
+
+/* Ürün Slider Sabit Yükseklik Ayarı */
+.fixed-slider {
+    height: 520px; /* Yüksekliği biraz daha artırdık ve kilitledik */
+}
+.fixed-slider .carousel-item {
+    height: 100%;
+}
+/* Mobilde ekran daraldığı için metinler alta kayar, taşmayı önlemek için yüksekliği esnetiyoruz */
+@@media (max-width: 768px) {
+    .fixed-slider {
+        height: auto;
+        min-height: 520px; 
+    }
 }
     </style>
 </head>
@@ -218,7 +243,7 @@
                     <h6 class="fw-bold mb-4 text-white">İLETİŞİM</h6>
                     <ul class="list-unstyled">
                         <li class="mb-3 text-light" style="font-size: 0.95rem;">PZT- CMT : 8:45 - 18:30</li>
-                        <li class="mb-4 text-white fw-bold" style="font-size: 1.05rem;">Küçükbakkalköy, İstanbul</li>
+                        <li class="mb-4 text-white fw-bold" style="font-size: 1.05rem;">Küçükbakkalköy Mah. Derebey Sk. No: 6 34750 Ataşehir/İstanbul</li>
                         <li class="mb-1 text-light" style="font-size: 0.85rem; letter-spacing: 1px;">MAİL</li>
                         <li><a href="mailto:iletisim@dengedefence.com">iletisim@dengedefence.com</a></li>
                     </ul>
@@ -244,5 +269,14 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Animasyonları başlatıyoruz
+        AOS.init({
+            once: true, // Animasyon sadece bir kere çalışsın (sürekli inip çıkarken tekrarlamasın)
+            offset: 100 // Öğe ekrana 100px girince animasyon başlasın
+        });
+    </script>
 </body>
 </html>
