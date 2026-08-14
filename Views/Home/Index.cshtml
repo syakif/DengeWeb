@@ -1,4 +1,5 @@
-﻿@{ ViewData["Title"] = "Anasayfa"; }
+﻿@model List<DengeWeb.Models.ProductViewModel>
+@{ ViewData["Title"] = "Anasayfa"; }
 
 <!-- 1. Karşılama ve Vizyon Alanı -->
 <!-- data-aos="fade-up" sayesinde ekran buraya gelince aşağıdan yukarı doğru belirecek -->
@@ -27,60 +28,49 @@
     </div>
 </section>
 
-<!-- 3. Ürünler Alanı (Profesyonel Slider) -->
-<section class="py-5 bg-white" data-aos="fade-up" data-aos-duration="1000">
-    <div class="container">
-        
-        <!-- Ürün Slider Başlangıcı (fade geçişli) -->
-        <div id="productCarousel" class="carousel slide carousel-fade shadow-sm rounded navy-frame" data-bs-ride="carousel">
+<!-- Ürün Slider Başlangıcı -->
+        <div id="productCarousel" class="carousel slide carousel-fade shadow-sm rounded navy-frame fixed-slider" data-bs-ride="carousel">
             
-            <!-- Noktalar (Indicators) -->
+            <!-- 1. DİNAMİK NOKTALAR (Indicators) -->
             <div class="carousel-indicators mb-0 pb-2">
-                <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="0" class="active bg-dark" aria-current="true"></button>
-                <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="1" class="bg-dark"></button>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <button type="button" 
+                            data-bs-target="#productCarousel" 
+                            data-bs-slide-to="@i" 
+                            class="@(i == 0 ? "active bg-dark" : "bg-dark")" 
+                            aria-current="@(i == 0 ? "true" : "false")">
+                    </button>
+                }
             </div>
 
-            <!-- Eski p-4 p-md-5 sınıflarını buradan kaldırdık ve fixed-slider sınıfını ekledik -->
+            <!-- 2. DİNAMİK ÜRÜNLER (Carousel Items) -->
             <div class="carousel-inner bg-light rounded fixed-slider">
-                
-                <!-- Ürün 1 -->
-                <!-- h-100 ekleyerek elemanın kutuyu tamamen kaplamasını sağladık -->
-                <div class="carousel-item active h-100">
-                    <!-- İç boşlukları (p-4 p-md-5) buraya taşıdık -->
-                    <div class="row align-items-center h-100 p-4 p-md-5">
-                        <div class="col-md-6 text-center mb-4 mb-md-0">
-                            <!-- Görsele max-height ve object-fit verdik ki resim çok büyük bile olsa çerçeveyi bozmasın -->
-                            <img src="/images/images.jpg" class="img-fluid rounded shadow" style="max-height: 380px; object-fit: contain;" alt="Ürün 1">
-                        </div>
-                        <div class="col-md-6 px-md-5">
-                            <h3 class="fw-bold mb-3" style="color: #001f54;">Taktik Haberleşme Sistemi</h3>
-                            <p class="text-muted mb-4">Savaş alanında kesintisiz, kriptolu ve yüksek hızlı veri aktarımı sağlayan yeni nesil haberleşme altyapısı. Zorlu koşullarda bile maksimum performans gösterir.</p>
-                            <a asp-controller="Home" asp-action="Products" class="btn btn-outline-dark px-4 py-2 fw-bold" style="border-radius: 0; letter-spacing: 1px;">
-                                DAHA FAZLA <i class="fas fa-chevron-right ms-2" style="font-size: 0.8rem;"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Ürün 2 -->
-                <div class="carousel-item h-100">
-                    <div class="row align-items-center h-100 p-4 p-md-5">
-                        <div class="col-md-6 text-center mb-4 mb-md-0">
-                            <img src="/images/images.jpg" class="img-fluid rounded shadow" style="max-height: 380px; object-fit: contain;" alt="Ürün 2">
-                        </div>
-                        <div class="col-md-6 px-md-5">
-                            <h3 class="fw-bold mb-3" style="color: #001f54;">Kriptolu Telsiz Cihazı</h3>
-                            <p class="text-muted mb-4">Gelişmiş ses ve veri şifreleme algoritmaları sayesinde sahadaki iletişiminizi dış tehditlere karşı %100 güvenli hale getirir.</p>
-                            <a asp-controller="Home" asp-action="Products" class="btn btn-outline-dark px-4 py-2 fw-bold" style="border-radius: 0; letter-spacing: 1px;">
-                                DAHA FAZLA <i class="fas fa-chevron-right ms-2" style="font-size: 0.8rem;"></i>
-                            </a>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    var urun = Model[i];
+                    
+                    <!-- i == 0 ise ilk elemana 'active' sınıfı eklenir -->
+                    <div class="carousel-item h-100 @(i == 0 ? "active" : "")">
+                        <div class="row align-items-center h-100 p-4 p-md-5">
+                            <div class="col-md-6 text-center mb-4 mb-md-0">
+                                <img src="@urun.ImageUrl" class="img-fluid rounded shadow" style="max-height: 380px; object-fit: contain;" alt="@urun.Name">
+                            </div>
+                            <div class="col-md-6 px-md-5">
+                                <h3 class="fw-bold mb-3" style="color: #001f54;">@urun.Name</h3>
+                                <p class="text-muted mb-4">@urun.Description</p>
+                                
+                                <!-- Eğer ürünün kendi özel detay sayfasına gidecekse asp-route-id="@urun.Id" eklenebilir -->
+                                <a asp-controller="Home" asp-action="Products" class="btn btn-outline-dark px-4 py-2 fw-bold" style="border-radius: 0; letter-spacing: 1px;">
+                                    DAHA FAZLA <i class="fas fa-chevron-right ms-2" style="font-size: 0.8rem;"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
+                }
             </div>
 
-            <!-- Sağ/Sol Oklar -->
+            <!-- Sağ/Sol Oklar (Sabit kalıyor) -->
             <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev" style="width: 5%;">
                 <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(100%);"></span>
                 <span class="visually-hidden">Önceki</span>
@@ -90,8 +80,6 @@
                 <span class="visually-hidden">Sonraki</span>
             </button>
         </div>
-    </div>
-</section>
 
 <!-- 4. İletişim / Call to Action Alanı -->
 <!-- Taslaktaki "beyaz, çok hafif gri arkaplan" notuna uygun #f8f9fa arka planı verildi -->

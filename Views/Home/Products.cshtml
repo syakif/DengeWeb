@@ -6,8 +6,8 @@
 <div class="row mt-4">
     @foreach (var urun in Model)
     {
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm h-100">
+        <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-duration="1000">
+            <div class="card shadow-sm h-100" data-aos="fade-up" data-aos-duration="1000">
                 <img src="@urun.ImageUrl" class="card-img-top" alt="@urun.Name">
                 <div class="card-body">
                     <h5 class="card-title fw-bold">@urun.Name</h5>
