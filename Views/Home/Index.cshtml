@@ -112,6 +112,58 @@
     </div>
 </section>
 
+<!-- 3. HAKKIMIZDA ÖZET (CTA) ALANI -->
+<!-- py-5 (padding) değerini py-6 (veya style ile çok daha büyük bir değer) ile artırarak alanı genişletiyoruz -->
+<section style="background-color: #001f54; border-top: 2px solid rgba(255,255,255,0.1); padding-top: 7rem; padding-bottom: 7rem;">
+    <div class="container">
+        <div class="row align-items-center">
+            
+            <!-- SOL KOLON: Sadece Beyaz Logo (Boyutu da biraz büyütüldü) -->
+            <div class="col-md-5 text-center text-md-start mb-5 mb-md-0" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="100">
+                <img src="~/images/ddlogonobg.png" alt="Denge Defence Logo" class="img-fluid" style="max-height: 240px; object-fit: contain; filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.3));">
+            </div>
+
+            <!-- SAĞ KOLON: Başlık, Yazı ve Solid Beyaz Buton -->
+            <!-- col-md-7 ile sağ kolona biraz daha fazla yer verdik -->
+            <div class="col-md-7 ps-md-5" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                
+                <!-- Sadece HAKKIMIZDA yazan beyaz başlık -->
+                <h2 class="fw-bold mb-4 text-white" style="letter-spacing: 2px; font-size: 2.5rem; text-transform: uppercase;">
+                    HAKKIMIZDA
+                </h2>
+                
+                <!-- Açıklama Metni (Font boyutu hafif büyütüldü) -->
+                <p class="mb-5" style="color: #e0e5ec; font-size: 1.25rem; font-weight: 300; line-height: 1.8;">
+                    Güvenliğinizi en üst düzeye çıkarmak için yenilikçi ve yüksek teknolojili savunma çözümleri geliştiriyoruz. Uzman mühendis kadromuz ve yerli üretim gücümüzle sektörde öncü olmaktan gurur duyuyoruz.
+                </p>
+                
+                <!-- YENİ BUTON: Arka plan tam beyaz, yazı lacivert, içi dolgulu (solid) -->
+                <style>
+                    .btn-solid-white {
+                        background-color: #ffffff;
+                        color: #001f54;
+                        border: 2px solid #ffffff;
+                        transition: all 0.3s ease;
+                    }
+                    .btn-solid-white:hover {
+                        background-color: #e0e5ec; /* Hover'da çok hafif gümüş/gri olur */
+                        color: #001f54;
+                        border-color: #e0e5ec;
+                        transform: translateY(-3px); /* Hover'da çok hafif havaya kalkar */
+                        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+                    }
+                </style>
+
+                <a asp-controller="Home" asp-action="About" class="btn btn-solid-white px-5 py-3 fw-bold" style="border-radius: 0; letter-spacing: 1px;">
+                    HAKKIMIZDA DAHA FAZLA <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+                
+            </div>
+            
+        </div>
+    </div>
+</section>
+
 <!-- 4. İletişim / Call to Action Alanı -->
 <!-- Taslaktaki "beyaz, çok hafif gri arkaplan" notuna uygun #f8f9fa arka planı verildi -->
 <section class="py-5 mb-5" style="background-color: #f8f9fa;" data-aos="fade-up" data-aos-duration="1000">
