@@ -11,6 +11,10 @@ public class ContactViewModel
     [EmailAddress(ErrorMessage = "Geçerli bir e-posta adresi giriniz.")]
     public string Email { get; set; }
 
+    [Required(ErrorMessage = "Lütfen telefon numaranızı giriniz.")]
+    [Phone(ErrorMessage = "Geçerli bir telefon numarası giriniz.")]
+    public string Phone { get; set; }
+
     [Required(ErrorMessage = "Lütfen bir konu belirtiniz.")]
     public string Subject { get; set; }
 

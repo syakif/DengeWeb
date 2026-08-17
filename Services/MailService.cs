@@ -23,7 +23,7 @@ public class MailService : IMailService
 
         var builder = new BodyBuilder
         {
-            HtmlBody = $"<b>Gönderen:</b> {request.FullName} <br> <b>E-Posta:</b> {request.Email} <br><br> <b>Mesaj:</b><br> {request.Message}"
+            HtmlBody = $"<b>Gönderen:</b> {request.FullName} <br> <b>E-Posta:</b> {request.Email} <br> <b>Telefon:</b> {request.Phone} <br><br> <b>Mesaj:</b><br> {request.Message}"
         };
         email.Body = builder.ToMessageBody();
 

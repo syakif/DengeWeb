@@ -1,22 +1,176 @@
 @model List<DengeWeb.Models.ProductViewModel>
 @{ ViewData["Title"] = "Ürünlerimiz"; }
 
-<h2>Ürünlerimiz</h2>
-<hr />
-<div class="row mt-4">
-    @foreach (var urun in Model)
+<style>
+/* SAVUNMA SANAYİİ KONSEPT ÜRÜN KARTLARI V2 */
+
+/* 1. Kapsayıcı Hover Efekti (Düzeltildi) */
+/* SADECE fare genel container'ın İÇİNDEYSE ve DİĞER kartların üzerinde DEĞİLSE kararır */
+.defense-products-container:hover .defense-card-wrapper:not(:hover) .defense-card {
+    opacity: 0.5;
+    filter: grayscale(80%);
+}
+
+/* 2. Kartın Dış Kabuğu */
+.defense-card-wrapper {
+    transition: all 0.4s ease-in-out;
+    display: block;
+    text-decoration: none !important; /* Mavi alt çizgiyi ENGELLER */
+}
+/* Linkin içindeki hiçbir yazının mavi veya altı çizgili olmaması için ekstra güvenlik */
+.defense-card-wrapper:link, 
+.defense-card-wrapper:visited, 
+.defense-card-wrapper:hover, 
+.defense-card-wrapper:active {
+    text-decoration: none !important;
+    color: inherit; /* Kendi verdiğimiz rengi korur */
+}
+
+/* 3. Kartın Kendisi (Normal durum - Soluk değil) */
+.defense-card {
+    border: 1px solid #d1d5d8;
+    border-radius: 0 !important;
+    background-color: #ffffff;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    height: 100%;
+    opacity: 1; /* Normalde %100 görünür */
+    filter: none;
+}
+.defense-card-wrapper:hover .defense-card {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 31, 84, 0.2);
+    border-color: #001f54;
+}
+
+/* 4. Resim Alanı */
+.defense-card-img-container {
+    overflow: hidden;
+    position: relative;
+    border-bottom: 3px solid #001f54;
+}
+.defense-card-img-container img {
+    transition: transform 0.6s ease;
+}
+.defense-card-wrapper:hover .defense-card-img-container img {
+    transform: scale(1.05);
+}
+
+/* 5. Yuvarlak (i) İkonu ve Uzun Açıklama Efekti */
+.defense-info-icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 31, 84, 0.9);
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    z-index: 3;
+    transition: background 0.3s ease;
+}
+
+/* Uzun Açıklamanın Gizli Perdesi */
+.defense-info-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 31, 84, 0.95); /* Koyu lacivert perde */
+    color: white;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    opacity: 0; /* Başlangıçta tamamen görünmez */
+    visibility: hidden; /* Tıklanabilir olmasını engeller */
+    transition: all 0.4s ease;
+    z-index: 2;
+}
+.defense-info-overlay p {
+    transform: translateY(20px); /* Yazı aşağıda bekler */
+    transition: all 0.4s ease;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* SADECE (i) İKONUNUN ÜZERİNE GELİNDİĞİNDE PERDEYİ AÇ */
+.defense-info-icon:hover + .defense-info-overlay,
+.defense-info-overlay:hover {
+    opacity: 1;
+    visibility: visible;
+}
+.defense-info-icon:hover + .defense-info-overlay p,
+.defense-info-overlay:hover p {
+    transform: translateY(0); /* Yazı yukarı kayarak gelir */
+}
+</style>
+
+<!-- Ana Başlık (Bir önceki adımda yaptığımız Kurumsal İmza Tasarımı) -->
+<div class="row mb-5" data-aos="fade-right" data-aos-duration="800">
+    <div class="col-12">
+        <h1 class="fw-bold display-5" style="color: #001f54; letter-spacing: 1px;">Ürünlerimiz</h1>
+        <div style="height: 4px; width: 60px; background-color: #001f54; margin-top: 15px;"></div>
+    </div>
+</div>
+
+<!-- ÜRÜNLER IZGARASI (Grid) -->
+<div class="row defense-products-container">
+    
+    @foreach(var urun in Model)
     {
-        <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-duration="1000">
-            <div class="card shadow-sm h-100" data-aos="fade-up" data-aos-duration="1000">
-                <img src="@urun.ImageUrl" class="card-img-top" alt="@urun.Name">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold">@urun.Name</h5>
-                    <p class="card-text">@urun.Description</p>
+        <div class="col-md-4 mb-5 defense-card-wrapper" data-aos="fade-up" data-aos-duration="800">
+            <!-- Tıklandığında ProductDetails sayfasına gider -->
+            <!-- text-decoration-none ile mavi çizgi kesin olarak engellenir -->
+            <a asp-controller="Home" asp-action="ProductDetails" asp-route-id="@urun.Id" class="text-decoration-none">
+                <div class="defense-card d-flex flex-column">
+                    
+                    <!-- Resim ve Bilgi Perdesi Alanı -->
+                    <div class="defense-card-img-container bg-light">
+                        
+                        <!-- (i) İkonu (Üzerine gelince perdeyi açar) -->
+                        <div class="defense-info-icon shadow">
+                            <i class="fas fa-info"></i>
+                        </div>
+                        
+                        <!-- (i)'ye gelindiğinde açılan uzun açıklama perdesi -->
+                        <!-- NOT: Bu HTML etiketi defense-info-icon'dan HEMEN SONRA gelmelidir (CSS'teki + kuralı için) -->
+                        <div class="defense-info-overlay">
+                            <!-- Şimdilik Description basıyoruz, veritabanında "UzunAciklama" gibi bir alanın varsa onu koyabilirsin -->
+                            <p>@urun.Description Detaylı teknik özellikleri ve saha kullanım senaryolarını incelemek için ürün sayfasına gidiniz.</p>
+                        </div>
+
+                        <!-- Orijinal Ürün Görseli -->
+                        <img src="@urun.ImageUrl" class="img-fluid w-100" style="object-fit: cover; height: 260px;" alt="@urun.Name">
+                    </div>
+
+                    <!-- Alt İçerik Alanı -->
+                    <div class="p-4 d-flex flex-column flex-grow-1">
+                        <!-- Yazı rengi zorla lacivert yapıldı, mavi link engellendi -->
+                        <h4 class="fw-bold mb-3" style="color: #001f54 !important;">@urun.Name</h4>
+                        
+                        <!-- Kısa açıklama -->
+                        <p class="text-secondary mb-4 flex-grow-1" style="font-size: 0.95rem; line-height: 1.6;">
+                            @urun.Description
+                        </p>
+                        
+                        <!-- Detay İncele Kısmı -->
+                        <div class="mt-auto border-top pt-3 text-end fw-bold" style="color: #001f54 !important; letter-spacing: 1px; font-size: 0.85rem;">
+                            DETAYLARI İNCELE <i class="fas fa-arrow-right ms-2"></i>
+                        </div>
+                    </div>
+
                 </div>
-                <div class="card-footer bg-white border-top-0">
-                    <a asp-action="Contact" class="btn btn-outline-dark w-100">Bilgi İste</a>
-                </div>
-            </div>
+            </a>
         </div>
     }
+
 </div>

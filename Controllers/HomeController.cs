@@ -51,6 +51,20 @@ public class HomeController : Controller
         return View(products);
     }
 
+    
+public IActionResult ProductDetails(int id)
+        {
+            var product = new ProductViewModel 
+            { 
+                Id = id, 
+                Name = "Taktik İHA X-1", 
+                Description = "Gelişmiş keşif ve gözetleme sistemleri...", 
+                ImageUrl = "/images/Patroller-IHA.jpg"
+            };
+
+            return View(product);
+        }
+
     public IActionResult Index()
     {
         var products = new List<ProductViewModel>
@@ -83,4 +97,6 @@ public class HomeController : Controller
         }
         return View(model);
     }
+
+ 
 }

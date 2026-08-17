@@ -1,8 +1,107 @@
 @model DengeWeb.Models.ContactViewModel
 @{ ViewData["Title"] = "İletişim"; }
 
-<h2>İletişim & Teklif İste</h2>
+<div class="row mb-5" data-aos="fade-right" data-aos-duration="800">
+    <div class="col-12">
+        <h1 class="fw-bold display-5" style="color: #001f54; letter-spacing: 1px;">İletişim</h1>
+        <div style="height: 4px; width: 60px; background-color: #001f54; margin-top: 15px;"></div>
+    </div>
+</div>
 <hr />
+
+<style>
+    /* Denge Defence - Minimalist Form CSS */
+    .defense-form-group {
+        margin-bottom: 2.5rem;
+    }
+    
+    /* Görseldeki gibi küçük, büyük harfli ve aralıklı başlıklar */
+    .defense-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        color: #001f54; /* Kurumsal Lacivert */
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+    
+    /* Kutusuz, Sadece Alt Çizgili Input Alanları */
+    .defense-input {
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid #ced4da; /* İnce gri alt çizgi */
+        background-color: transparent;
+        padding: 0.5rem 0;
+        font-size: 1rem;
+        color: #333;
+        transition: border-color 0.3s ease;
+        border-radius: 0; 
+    }
+    
+    /* Input'a tıklandığında (Focus) */
+    .defense-input:focus {
+        outline: none;
+        border-bottom: 2px solid #001f54; /* Çizgi lacivert ve kalın olur */
+        box-shadow: none; /* Bootstrap'in varsayılan mavi parlamasını engeller */
+    }
+    
+    .defense-input::placeholder {
+        color: #adb5bd;
+        font-weight: 300;
+    }
+    
+    /* Görseldeki "Submit ->" benzeri minimalist buton */
+    .defense-submit-btn {
+        background: transparent;
+        border: none;
+        color: #001f54;
+        font-size: 1.15rem;
+        font-weight: 600;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        transition: color 0.3s ease;
+        letter-spacing: 0.5px;
+    }
+    
+    .defense-submit-btn:hover {
+        color: #a3a7ab; /* Metalik gri */
+    }
+    
+    .defense-submit-btn i {
+        margin-left: 12px;
+        transition: transform 0.3s ease;
+    }
+    
+    /* Butonun üstüne gelince ok işareti sağa kayar */
+    .defense-submit-btn:hover i {
+        transform: translateX(8px);
+    }
+
+    /* Gönder Butonu (İnce Oval Tasarım) */
+.submit-btn {
+    background: transparent;
+    border: 1px solid #001f44; /* Çok ince lacivert çerçeve */
+    border-radius: 50px; /* Kenarları tam oval yapar (pill shape) */
+    padding: 10px 28px; /* Butonun iç boşlukları (ovalliği belirginleştirir) */
+    color: #001f44;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px; /* Yazı ile ok aralığı */
+    transition: all 0.3s ease; /* Hover efekti için yumuşak geçiş */
+    margin-top: 10px;
+}
+
+/* Butonun üzerine gelince (Hover) - İsteğe bağlı şık bir efekt */
+.submit-btn:hover {
+    background: #001f44;
+    color: #ffffff;
+}
+</style>
 
 @if (TempData["SuccessMessage"] != null)
 {
@@ -13,19 +112,112 @@
     <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
 }
 
-<div class="row mt-4">
-    <div class="col-md-6 mb-4">
-        <!-- İletişim Bilgileri Kartı -->
-        <div class="card shadow-sm mb-4" data-aos="fade-up" data-aos-duration="1000">
-            <div class="card-body">
-                <h4 class="card-title mb-4">Bize Ulaşın</h4>
-                <p><strong>Adres:</strong> Küçükbakkalköy Mah. Derebey Sk. No: 6 34750 Ataşehir/İstanbul</p>
-                <p><strong>Telefon:</strong> +90 (216) 573 40 40</p>
-                <p><strong>E-Posta:</strong> info@dengedefence.com.tr</p>
-            </div>
+
+    
+<section class="py-5 mt-5 bg-white">
+    <div class="container pt-4">
+
+        <!-- Ana Satır (Kolonların yeri değiştirildi) -->
+        <div class="row">
+            
+            <!-- YENİ SOL KOLON: Ofisimiz / İletişim Bilgileri -->
+            <!-- Mobilde formdan önce görünmesi için mb-5 eklendi -->
+            <div class="col-lg-5 pe-lg-5 mb-5 mb-lg-0" data-aos="fade-right" data-aos-duration="1000">
+    <!-- Tasarımla uyumlu, köşeli ve sağ tarafı lacivert çizgili kutu -->
+    <div class="p-5 bg-light rounded-0 h-100" style="border-right: 4px solid #001f54;">
+        
+        <h4 class="fw-bold mb-4" style="color: #001f54;">Bize Ulaşın</h4>
+
+        <!-- Adres -->
+        <div class="d-flex align-items-start text-muted mb-4" style="line-height: 1.8;">
+            <i class="fas fa-map-marker-alt me-3 mt-1" style="color: #001f54;"></i>
+            <span>
+                Küçükbakkalköy Mah. Derebey Sk. No: 6 34750<br>
+                Ataşehir / İstanbul
+            </span>
         </div>
 
-        <!-- Google Haritalar Kartı -->
+        <!-- Telefon -->
+        <div class="d-flex align-items-center mb-4" style="line-height: 1.8;">
+            <i class="fas fa-phone-alt me-3" style="color: #001f54;"></i>
+            <a href="tel:+902165734040"
+               class="text-muted text-decoration-none"
+               style="transition: color 0.3s;"
+               onmouseover="this.style.color='#001f54'"
+               onmouseout="this.style.color='#6c757d'">
+                0216 573 40 40
+            </a>
+        </div>
+
+        <!-- E-posta -->
+        <a href="mailto:info@dengedefence.com.tr"
+           class="d-block text-muted text-decoration-none mb-3"
+           style="transition: color 0.3s;"
+           onmouseover="this.style.color='#001f54'"
+           onmouseout="this.style.color='#6c757d'">
+            <i class="fas fa-envelope me-2" style="color: #001f54;"></i>
+            info@dengedefence.com.tr
+        </a>
+
+    </div>
+</div>
+
+            <!-- YENİ SAĞ KOLON: İletişim Formu -->
+            <div class="col-lg-7" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                
+                <!-- YENİ BAŞLIK: Formun üstüne alındı, boyutu küçüldü (h3) ve alt çizgisi kaldırıldı -->
+                <h3 class="fw-bold mb-5" style="color: #001f54; letter-spacing: 0.5px;">İletişim Formu</h3>
+
+                <form method="post" asp-action="Contact" method="post">
+                    <!-- 1. SATIR: Ad Soyad ve E-Posta -->
+                    <div class="row">
+                        <!-- AD SOYAD -->
+                        <div class="col-md-6 defense-form-group">
+                            <label class="defense-label">Ad Soyad</label>
+                            <input type="text" class="defense-input" placeholder="Adınızı ve soyadınızı girin" name="FullName" required>
+                        </div>
+                        <!-- E-POSTA -->
+                        <div class="col-md-6 defense-form-group">
+                            <label class="defense-label">E-Posta</label>
+                            <input type="email" class="defense-input" placeholder="E-posta adresinizi girin" name="Email" required>
+                        </div>
+                    </div>
+
+                    <!-- 2. SATIR: Telefon ve Konu -->
+                    <div class="row">
+                        <!-- TELEFON -->
+                        <div class="col-md-6 defense-form-group">
+                            <label class="defense-label">Telefon</label>
+                            <input type="tel" class="defense-input" placeholder="Telefon numaranızı girin" name="Phone" required>
+                        </div>
+                        <!-- KONU -->
+                        <div class="col-md-6 defense-form-group">
+                            <label class="defense-label">Konu</label>
+                            <input type="text" class="defense-input" placeholder="Konuyu belirtin" name="Subject" required>
+                        </div>
+                    </div>
+
+                    <!-- 3. SATIR: Mesaj (Tam Genişlik) -->
+                    <div class="row">
+                        <div class="col-12 defense-form-group">
+                            <label class="defense-label">Mesaj</label>
+                            <textarea class="defense-input" rows="7" placeholder="İletmek istediğiniz detayları buraya yazabilirsiniz..." style="resize: none;" name="Message" required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- GÖNDER BUTONU -->
+                    <div class="mt-2 text-start">
+                        <button type="submit" class="submit-btn">Gönder <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Google Haritalar Kartı -->
         <div class="card shadow-sm" data-aos="fade-up" data-aos-duration="1000">
             <div class="card-body p-0">
                 <!-- iframe içine Küçükbakkalköy, İstanbul koordinatları eklenmiştir -->
@@ -40,39 +232,4 @@
                 </iframe>
             </div>
         </div>
-    </div>
-    
-    <div class="col-md-6 mb-4"  data-aos="fade-up" data-aos-duration="1000">
-        <!-- h-100 sınıfı ile kartın yüksekliğini sol kolonla eşitliyoruz -->
-        <div class="card shadow-sm h-100">
-            <div class="card-body d-flex flex-column">
-                <h4 class="card-title mb-4">Teklif Ver / Bilgi İste</h4>
-            
-                <form method="post" asp-action="Contact" class="d-flex flex-column flex-grow-1">
-                    <div class="mb-3">
-                        <label class="form-label text-muted">Ad Soyad</label>
-                        <input type="text" class="form-control" name="FullName" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label text-muted">E-Posta</label>
-                        <input type="email" class="form-control" name="Email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label text-muted">Konu</label>
-                        <input type="text" class="form-control" name="Subject" required>
-                    </div>
-                
-                    <!-- flex-grow-1 ile bu mesaj alanının kalan tüm boşluğu yutmasını sağlıyoruz -->
-                    <div class="mb-3 flex-grow-1 d-flex flex-column">
-                        <label class="form-label text-muted">Mesajınız</label>
-                        <!-- rows="6" ile varsayılan boyunu artırdık, flex-grow-1 ile de esnek bıraktık -->
-                        <textarea class="form-control flex-grow-1" name="Message" rows="6" required></textarea>
-                    </div>
-                
-                    <!-- mt-auto butonu her zaman en alta iter -->
-                    <button type="submit" class="btn btn-dark w-100 mt-auto py-2">Gönder</button>
-                </form>
-            </div>
-        </div>
-    </div>
 </div>

@@ -4,13 +4,22 @@
 <div class="container my-5">
     
     <!-- Giriş Kısmı -->
-    <div class="row mb-5" data-aos="fade-up" data-aos-duration="1000">
-        <div class="col-12 text-center">
-            <h2 class="fw-bold" style="color: #001f54;">@Model.HeaderTitle</h2>
-            <hr class="w-25 mx-auto" style="border-top: 3px solid #0d6efd;">
-            <p class="lead mt-4 text-muted">@Model.HeaderSubtitle</p>
-        </div>
+    <!-- YENİ KURUMSAL İMZA TASARIMI (Sola dayalı, lacivert kalın çizgili) -->
+<div class="row mb-5" data-aos="fade-right" data-aos-duration="800">
+    <div class="col-12">
+        <!-- Modelden gelen başlığı display-5 ve lacivert ile büyüttük -->
+        <h1 class="fw-bold display-5" style="color: #001f54; letter-spacing: 1px;">@Model.HeaderTitle</h1>
+        
+        <!-- Mavi <hr> yerine, kurumsal kalın kısa lacivert çizgimizi koyduk -->
+        <div style="height: 4px; width: 60px; background-color: #001f54; margin-top: 15px;"></div>
+        
+        <!-- Modelden gelen alt başlığı da hemen altına, çok daha şık bir fontla yerleştirdik -->
+        @if(!string.IsNullOrEmpty(Model.HeaderSubtitle))
+        {
+            <p class="lead mt-4 text-muted w-75" style="line-height: 1.8;">@Model.HeaderSubtitle</p>
+        }
     </div>
+</div>
 
     <!-- Misyon ve Vizyon Bölümü -->
     <div class="row align-items-center mb-5 mt-4" data-aos="fade-up" data-aos-duration="1000">

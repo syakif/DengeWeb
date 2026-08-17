@@ -1,0 +1,144 @@
+@model DengeWeb.Models.ProductViewModel
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<style>
+/* Galeri Resimleri Kare (1:1) ve Hover Efekti */
+.defense-gallery-img {
+    aspect-ratio: 1 / 1; /* Resmi KESİN OLARAK KARE yapar */
+    width: 100%;
+    object-fit: cover; /* Resmi esnetmeden, kare kutunun içine tam sığacak şekilde kırpar */
+    transition: transform 0.4s ease;
+}
+.defense-gallery-img:hover {
+    transform: scale(1.08);
+}
+</style>
+
+
+<!-- Üst Kısım: Geri Dön Linki ve Başlık -->
+<div class="row mb-5" data-aos="fade-right" data-aos-duration="800">
+    <div class="col-12">
+        <a asp-action="Products" class="text-decoration-none text-muted mb-3 d-inline-block" style="font-size: 0.9rem;">
+            <i class="fas fa-arrow-left me-2"></i> Ürünlere Dön
+        </a>
+        <h1 class="fw-bold display-5" style="color: #001f54; letter-spacing: 1px;">@Model.Name</h1>
+        <!-- Başlığın altına şık, kısa bir lacivert çizgi -->
+        <div style="height: 4px; width: 60px; background-color: #001f54; margin-top: 15px;"></div>
+    </div>
+</div>
+
+<!-- Alt Kısım: Fotoğraf, Broşür ve İçerik -->
+<div class="row align-items-start">
+    
+    <!-- SOL KOLON: Görsel ve PDF Butonu -->
+    <div class="col-md-5 mb-5 mb-md-0" data-aos="fade-up" data-aos-duration="1000">
+        <!-- Ürün Görseli -->
+        <div class="card border-0 shadow-sm rounded overflow-hidden mb-3 bg-light">
+            <!-- filter: drop-shadow ile resme 3D derinlik kattık -->
+            <img src="@Model.ImageUrl" class="img-fluid w-100" style="object-fit: contain; max-height: 400px; padding: 1rem; filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.2));" alt="@Model.Name">
+        </div>
+        
+        <!-- PDF İndir Butonu (Tam Genişlik) -->
+        <!-- href kısmına wwwroot/pdfs/ klasörüne atacağın pdf'in yolunu vereceksin -->
+        <a href="~/pdfs/ornek-brosur.pdf" target="_blank" class="btn btn-outline-dark w-100 py-3 fw-bold d-flex align-items-center justify-content-center" style="border-radius: 0; letter-spacing: 1px; transition: all 0.3s;">
+            <i class="fas fa-file-pdf me-2 text-danger" style="font-size: 1.3rem;"></i> ÜRÜN BROŞÜRÜNÜ İNDİR
+        </a>
+    </div>
+
+    <!-- SAĞ KOLON: Tanıtım Yazısı -->
+    <div class="col-md-7 px-md-5" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+        <h4 class="fw-bold mb-4" style="color: #333;">Genel Bakış</h4>
+        
+        <!-- Dinamik Gelen Açıklama -->
+        <p class="text-muted" style="line-height: 1.8; font-size: 1.1rem;">
+            @Model.Description
+        </p>
+
+        <!-- Şablonu zenginleştirmek için ekstra bir paragraf -->
+        <p class="text-muted" style="line-height: 1.8; font-size: 1.1rem;">
+            Uluslararası askeri standartlara (MIL-STD) uygun olarak geliştirilen sistemlerimiz, modüler yapısı sayesinde farklı platformlara kolayca entegre edilebilmektedir. 
+        </p>
+
+        <!-- Özellikler Listesi -->
+        <div class="mt-5 p-4 bg-light rounded border-start border-4" style="border-color: #001f54 !important;">
+            <h6 class="fw-bold mb-3" style="color: #001f54;">Öne Çıkan Özellikler</h6>
+            <ul class="list-unstyled text-muted mb-0" style="line-height: 2;">
+                <li><i class="fas fa-check text-success me-2"></i> Gelişmiş Balistik Koruma</li>
+                <li><i class="fas fa-check text-success me-2"></i> Kriptografik Veri Güvenliği</li>
+                <li><i class="fas fa-check text-success me-2"></i> Zorlu İklim Koşullarında (-40°C / +60°C) Çalışma</li>
+                <li><i class="fas fa-check text-success me-2"></i> %100 Yerli ve Milli Tasarım</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<!-- EKLENECEK YENİ GALERİ ALANI -->
+        <!-- EKLENECEK YENİ GALERİ ALANI (5'li Kare Düzen) -->
+        
+        <!-- Başlık (Ayrı satırda tuttuk ki 5'li düzene karışmasın) -->
+        <div class="row mt-5 pt-4 border-top" data-aos="fade-up" data-aos-duration="1000">
+            <div class="col-12 mb-3">
+                <h4 class="fw-bold" style="color: #001f54;">Galeri</h4>
+            </div>
+        </div>
+
+        <!-- Galeri Izgarası: Bilgisayarda 5, tablette 3, telefonda 2 tane yan yana -->
+        <!-- g-3 (gap-3) ile fotoğraflar arasındaki boşluğu estetik bir seviyeye getirdik -->
+        <!-- Galeri Izgarası (5'li Kare Düzen) -->
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-3 mb-5" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+            
+            <!-- Fotoğraf 1 -->
+            <div class="col">
+                <div class="card border-0 shadow-sm rounded overflow-hidden" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="document.getElementById('modalImage').src='@Model.ImageUrl'">
+                    <img src="@Model.ImageUrl" class="defense-gallery-img" alt="Galeri 1">
+                </div>
+            </div>
+
+            <!-- Fotoğraf 2 (Düzeltildi) -->
+            <div class="col">
+                <div class="card border-0 shadow-sm rounded overflow-hidden" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="document.getElementById('modalImage').src='@Model.ImageUrl'">
+                    <img src="@Model.ImageUrl" class="defense-gallery-img" alt="Galeri 2">
+                </div>
+            </div>
+
+            <!-- Fotoğraf 3 (Düzeltildi) -->
+            <div class="col">
+                <div class="card border-0 shadow-sm rounded overflow-hidden" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="document.getElementById('modalImage').src='@Model.ImageUrl'">
+                    <img src="@Model.ImageUrl" class="defense-gallery-img" alt="Galeri 3">
+                </div>
+            </div>
+
+            <!-- Fotoğraf 4 (Düzeltildi) -->
+            <div class="col">
+                <div class="card border-0 shadow-sm rounded overflow-hidden" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="document.getElementById('modalImage').src='@Model.ImageUrl'">
+                    <img src="@Model.ImageUrl" class="defense-gallery-img" alt="Galeri 4">
+                </div>
+            </div>
+
+            <!-- Fotoğraf 5 (Düzeltildi) -->
+            <div class="col">
+                <div class="card border-0 shadow-sm rounded overflow-hidden" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#galleryModal" onclick="document.getElementById('modalImage').src='@Model.ImageUrl'">
+                    <img src="@Model.ImageUrl" class="defense-gallery-img" alt="Galeri 5">
+                </div>
+            </div>
+
+        </div>
+</section>
+
+<!-- BOOTSTRAP TAM EKRAN (LIGHTBOX) MODAL -->
+<!-- Sayfanın en altına (section'ın dışına) eklenecek görünmez kutu -->
+<div class="modal fade" id="galleryModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl"> <!-- modal-xl ile resmi olabildiğince büyük gösterir -->
+        <div class="modal-content bg-transparent border-0">
+            <!-- Modalın Sağ Üstündeki Kapatma Çarpısı -->
+            <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Kapat" style="z-index: 1055;"></button>
+            <div class="modal-body text-center p-0">
+                <!-- Javascript ile tıklanan resmin adresi buraya basılacak -->
+                <img id="modalImage" src="" class="img-fluid rounded shadow-lg" style="max-height: 90vh;" alt="Büyütülmüş Görsel">
+            </div>
+        </div>
+    </div>
+</div>

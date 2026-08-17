@@ -7,4 +7,5 @@ public class ProductViewModel
     public string Description { get; set; }
     public string LongDesc { get; set; }
     public string ImageUrl { get; set; }
+    public string BrochureUrl { get; set; }
 }
