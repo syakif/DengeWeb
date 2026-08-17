@@ -45,57 +45,75 @@
 
 
 <!-- Ürün Slider Başlangıcı -->
-        <div id="productCarousel" class="carousel slide carousel-fade shadow-sm rounded navy-frame fixed-slider" data-bs-ride="carousel">
+        <!-- 2. ÜRÜNLER ALANI (Çerçevesiz, Tam Ekran, Lacivert/Beyaz Konsept) -->
+<!-- m-0 ile dış boşlukları sıfırladık ki videoya tam yapışsın -->
+<section class="m-0 py-5 position-relative" style="background: linear-gradient(135deg, #001f54 0%, #000428 65%, #150144 100%);">
+    
+    <!-- İsteğe Bağlı: Video ile slider arasına çok ince, şık bir beyaz ayırıcı çizgi -->
+    <!-- <div class="position-absolute top-0 start-0 w-100" style="height: 2px; background: rgba(255,255,255,0.2);"></div> -->
+
+    <!-- container-fluid ile slider'ın sağdan soldan daha geniş ve ferah durmasını sağladık -->
+    <div class="container-fluid px-md-5">
+        
+        <!-- Frame, border, shadow ve bg sınıfları tamamen kaldırıldı -->
+        <div id="productCarousel" class="carousel slide carousel-fade fixed-slider" data-bs-ride="carousel">
             
-            <!-- 1. DİNAMİK NOKTALAR (Indicators) -->
+            <!-- Noktalar (Beyaz Yapıldı) -->
             <div class="carousel-indicators mb-0 pb-2">
                 @for (int i = 0; i < Model.Count; i++)
                 {
                     <button type="button" 
                             data-bs-target="#productCarousel" 
                             data-bs-slide-to="@i" 
-                            class="@(i == 0 ? "active bg-dark" : "bg-dark")" 
+                            class="@(i == 0 ? "active bg-white" : "bg-white")" 
                             aria-current="@(i == 0 ? "true" : "false")">
                     </button>
                 }
             </div>
 
-            <!-- 2. DİNAMİK ÜRÜNLER (Carousel Items) -->
-            <div class="carousel-inner bg-light rounded fixed-slider">
+            <!-- Ürünler -->
+            <div class="carousel-inner h-100" data-aos="fade-up" data-aos-duration="1000">
                 @for (int i = 0; i < Model.Count; i++)
                 {
                     var urun = Model[i];
-                    
-                    <!-- i == 0 ise ilk elemana 'active' sınıfı eklenir -->
                     <div class="carousel-item h-100 @(i == 0 ? "active" : "")">
-                        <div class="row align-items-center h-100 p-4 p-md-5" data-aos="fade-up" data-aos-duration="1000">
+                        <div class="row align-items-center h-100 p-4 p-md-5">
+                            
+                            <!-- Sol: Resim (Kutu yok, 3D gölge efekti var) -->
                             <div class="col-md-6 text-center mb-4 mb-md-0">
-                                <img src="@urun.ImageUrl" class="img-fluid rounded shadow" style="max-height: 380px; object-fit: contain;" alt="@urun.Name">
+                                <!-- filter: drop-shadow komutu, resmi bir kutuya hapsetmek yerine objenin kendi şekline göre gölge atar -->
+                                <img src="@urun.ImageUrl" class="img-fluid" style="max-height: 420px; object-fit: contain; filter: drop-shadow(0px 15px 25px rgba(0,0,0,0.6));" alt="@urun.Name">
                             </div>
+                            
+                            <!-- Sağ: Yazı (Bembeyaz ve Daha Büyük) -->
                             <div class="col-md-6 px-md-5">
-                                <h3 class="fw-bold mb-3" style="color: #001f54;">@urun.Name</h3>
-                                <p class="text-muted mb-4">@urun.Description</p>
+                                <h2 class="fw-bold mb-3 text-white display-5" style="letter-spacing: 1px;">@urun.Name</h2>
+                                <p class="mb-5" style="color: #e0e5ec; font-size: 1.2rem; font-weight: 300;">@urun.Description</p>
                                 
-                                <!-- Eğer ürünün kendi özel detay sayfasına gidecekse asp-route-id="@urun.Id" eklenebilir -->
-                                <a asp-controller="Home" asp-action="Products" class="btn btn-outline-dark px-4 py-2 fw-bold" style="border-radius: 0; letter-spacing: 1px;">
-                                    DAHA FAZLA <i class="fas fa-chevron-right ms-2" style="font-size: 0.8rem;"></i>
+                                <!-- Buton (İnce, beyaz kenarlıklı, zarif) -->
+                                <a asp-controller="Home" asp-action="Products" class="btn btn-outline-light px-5 py-3 fw-bold" style="border-radius: 0; letter-spacing: 2px;">
+                                    DAHA FAZLA <i class="fas fa-chevron-right ms-2" style="font-size: 0.9rem;"></i>
                                 </a>
                             </div>
+                            
                         </div>
                     </div>
                 }
             </div>
 
-            <!-- Sağ/Sol Oklar (Sabit kalıyor) -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev" style="width: 5%;">
-                <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(100%);"></span>
+            <!-- Sağ/Sol Oklar (Siyah yapan filter komutu silindi, artık varsayılan olarak beyazlar) -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev" style="width: 8%;">
+                <span class="carousel-control-prev-icon" aria-hidden="true" style="width: 3rem; height: 3rem;"></span>
                 <span class="visually-hidden">Önceki</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next" style="width: 5%;">
-                <span class="carousel-control-next-icon" aria-hidden="true" style="filter: invert(100%);"></span>
+            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next" style="width: 8%;">
+                <span class="carousel-control-next-icon" aria-hidden="true" style="width: 3rem; height: 3rem;"></span>
                 <span class="visually-hidden">Sonraki</span>
             </button>
+            
         </div>
+    </div>
+</section>
 
 <!-- 4. İletişim / Call to Action Alanı -->
 <!-- Taslaktaki "beyaz, çok hafif gri arkaplan" notuna uygun #f8f9fa arka planı verildi -->

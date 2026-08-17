@@ -10,7 +10,7 @@
     <title>@ViewData["Title"] | Denge Defence</title>
     
     <!-- FAVICON -->
-    <link rel="icon" type="image/png" href="/images/ddlogo.png">
+    <link rel="icon" type="image/png" href="/images/defence-Photoroom-1536x956.png">
 
     <!-- AOS (Animate On Scroll) -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -112,26 +112,47 @@
     background-color: transparent !important;
     box-shadow: none !important;
     transition: all 0.4s ease-in-out;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 1px;
+    padding-bottom: 1px;
 }
 
 /* Sayfa Kaydırıldığında Gelecek Lacivert Menü */
 .navbar-scrolled {
-    background: linear-gradient(135deg, #2e2e2e 0%, #260273 100%) !important;
+    background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%) !important;
     box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.4) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     transition: all 0.4s ease-in-out;
-    padding-top: 20x;
-    padding-bottom: 20px;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 
         /* Üst Menü Logo Ayarları */
         .navbar-brand img {
-            height: 40px; /* Logonun yüksekliği, duruma göre artırıp azaltabilirsin */
+            height: 120px; /* Logonun yüksekliği, duruma göre artırıp azaltabilirsin */
             margin-right: 12px; /* Logo ile yazı arasındaki boşluk */
             object-fit: contain;
         }
+
+        /* 1. Şeffaf Menüdeki Link Rengi (Video üzerindeyken: Hafif Gri / Gümüş) */
+.navbar-transparent .nav-link {
+    color: #e0e5ec !important; /* Açık gri tonu */
+    transition: color 0.3s ease-in-out;
+}
+/* Şeffaf menüde linkin üzerine gelince (Hover) bembeyaz olsun */
+.navbar-transparent .nav-link:hover {
+    color: #ffffff !important; 
+}
+
+/* 2. Lacivert Menüdeki Link Rengi (Kaydırıldığında: Tam Beyaz veya farklı bir renk) */
+/* Lacivert arka planda yüksek kontrast için bembeyaz veya gümüş olması idealdir */
+.navbar-scrolled .nav-link {
+    color: #12005c !important; /* Lacivert üstünde net beyaz */
+    transition: color 0.3s ease-in-out;
+}
+/* Lacivert menüde linkin üzerine gelince logodaki gümüş/gri tona dönsün */
+.navbar-scrolled .nav-link:hover {
+    color: #2100fb !important; 
+}
 
         /* Metalik Yazı Efekti */
 .metallic-text {
@@ -191,10 +212,17 @@
         <!-- Navbar'a id ekledik ve sınıfları dinamikleştirdik -->
         <nav id="mainNavbar" class="navbar navbar-expand-lg navbar-dark @navClasses">
             <div class="container">
+                <!-- Logo ve Yazı -->
                 <a class="navbar-brand fw-bold d-flex align-items-center" asp-controller="Home" asp-action="Index">
-                    <img src="~/images/5e0e5d75-88ce-434a-aed4-549f0eb6e319-removebg-preview.png" alt="Denge Defence Logo">
-                    <!-- Metalik yazıyı kaldırdık, referanstaki gibi beyaz ve düz yaptık -->
-                    <span class="text-white">DENGE DEFENCE</span>
+                    <!-- 1. BEYAZ LOGO (Anasayfa açıldığında görünecek) -->
+                    <!-- src kısmına elindeki BEYAZ logo dosyasının adını yaz -->
+                    <img id="logoWhite" src="/images/ddlogonobg.png" alt="Denge Defence Logo" style="height: 100px; margin-right: 0px; object-fit: contain; transition: opacity 0.3s;">
+            
+                    <!-- 2. RENKLİ LOGO (Menü lacivert olunca görünecek - Başlangıçta gizli (d-none)) -->
+                    <!-- src kısmına elindeki RENKLİ logo dosyasının adını yaz -->
+                    <img id="logoColor" src="/images/defence-Photoroom-1536x956.png" alt="Denge Defence Logo" class="d-none" style="height: 100px; margin-right: 0px; object-fit: contain; transition: opacity 0.3s;">
+            
+                    <!--<span class="text-white">DENGE DEFENCE</span>-->
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
@@ -310,20 +338,37 @@
     </script>
 
     <script>
-    // Eğer anasayfadaysak (menü navbar-transparent ile başlıyorsa) scroll olayını dinle
     var navbar = document.getElementById("mainNavbar");
+    var logoWhite = document.getElementById("logoWhite"); // Beyaz logoyu yakaladık
+    var logoColor = document.getElementById("logoColor"); // Renkli logoyu yakaladık
+
     if (navbar.classList.contains("navbar-transparent")) {
         window.addEventListener("scroll", function () {
             if (window.scrollY > 50) {
-                // Sayfa 50px'den fazla kaydırıldıysa lacivert menüye geç
+                // SAYFA KAYDIRILDI (Menü Lacivert Oluyor)
                 navbar.classList.remove("navbar-transparent");
                 navbar.classList.add("navbar-scrolled");
+                
+                // Beyaz logoyu gizle, renkli logoyu göster
+                logoWhite.classList.add("d-none");
+                logoColor.classList.remove("d-none");
             } else {
-                // En tepeye dönüldüyse tekrar şeffaf ol
+                // EN TEPEYE DÖNÜLDÜ (Menü Şeffaf Oluyor)
                 navbar.classList.add("navbar-transparent");
                 navbar.classList.remove("navbar-scrolled");
+                
+                // Renkli logoyu gizle, beyaz logoyu göster
+                logoColor.classList.add("d-none");
+                logoWhite.classList.remove("d-none");
             }
         });
+    } else {
+        // EĞER SAYFA ANASAYFA DEĞİLSE (Hakkımızda vb. - Menü hep lacivert)
+        // Başlangıçta direkt renkli logoyu göster
+        if (logoWhite && logoColor) {
+            logoWhite.classList.add("d-none");
+            logoColor.classList.remove("d-none");
+        }
     }
 </script>
 </body>
