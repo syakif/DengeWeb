@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DengeWeb")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d89ab235f2e1a3468b8c0c423198c90336eed76b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d2779914aeb269a4e958335a1f26e80435b20dea")]
 [assembly: System.Reflection.AssemblyProductAttribute("DengeWeb")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DengeWeb")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

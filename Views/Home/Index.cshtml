@@ -1,32 +1,48 @@
 ﻿@model List<DengeWeb.Models.ProductViewModel>
 @{ ViewData["Title"] = "Anasayfa"; }
 
-<!-- 1. Karşılama ve Vizyon Alanı -->
-<!-- data-aos="fade-up" sayesinde ekran buraya gelince aşağıdan yukarı doğru belirecek -->
-<section class="py-5 mt-5" data-aos="fade-up" data-aos-duration="1000">
-    <div class="container text-center">
-        <!-- Daha önce yazdığımız metalik yazıyı başlığa uyguladık -->
-        <h1 class="display-4 fw-bold text-dark mb-4" style="font-size: 3rem;">Geleceğin Savunma Teknolojileri</h1>
-        <p class="lead text-muted w-75 mx-auto">
-            Güvenliğinizi en üst düzeye çıkarmak için yenilikçi, sürdürülebilir ve yüksek teknolojili savunma çözümleri üretiyoruz. Gücümüzü Ar-Ge'den, ilhamımızı geleceğin ihtiyaçlarından alıyoruz.
+@{ 
+    ViewData["Title"] = "Anasayfa"; 
+    // Layout'a bu sayfanın anasayfa olduğunu ve menüyü şeffaf yapması gerektiğini bildiriyoruz!
+    ViewData["IsHome"] = true; 
+}
+
+<!-- 1. SİNEMATİK TAM EKRAN VİDEO VE YAZI ALANI -->
+<!-- vh-100 ekranın %100 yüksekliğini kaplar -->
+<section class="position-relative d-flex align-items-center justify-content-center w-100 vh-100 overflow-hidden">
+    
+    <!-- Arka Plan Videosu -->
+    <video autoplay loop muted playsinline class="position-absolute w-100 h-100 top-0 start-0" style="object-fit: cover; z-index: -2;">
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+    </video>
+
+    <!-- Videonun Üzerindeki Siyah Karartma (Opacity: 0.6 = %60 karanlık) -->
+    <div class="position-absolute w-100 h-100 top-0 start-0 bg-dark" style="opacity: 0.6; z-index: -1;"></div>
+
+    <!-- Ortalanmış Beyaz, Gölgeli Yazılar -->
+    <div class="container text-center text-white position-relative" style="z-index: 1;" data-aos="fade-up" data-aos-duration="1200">
+        <!-- text-shadow ile yazıya referanstaki gibi siyah gölge ekledik -->
+        <h1 class="display-3 fw-bold mb-4" style="text-shadow: 2px 4px 10px rgba(0,0,0,0.8); letter-spacing: 2px;">
+            Geleceğin Savunma Teknolojileri
+        </h1>
+        <p class="lead w-75 mx-auto mb-5" style="text-shadow: 1px 2px 6px rgba(0,0,0,0.9); font-size: 1.3rem;">
+            Güvenliğinizi en üst düzeye çıkarmak için yenilikçi, sürdürülebilir ve yüksek teknolojili savunma çözümleri üretiyoruz.
         </p>
+        
+        <!-- İsteğe bağlı: Referans görseldeki gibi yan yana kutucuklu butonlar eklenebilir -->
+        <div class="d-flex justify-content-center gap-3">
+            <a asp-controller="Home" asp-action="Products" class="btn btn-outline-light px-4 py-2" style="border-radius: 0; backdrop-filter: blur(5px);">
+                Haberleşme Sistemleri
+            </a>
+            <a asp-controller="Home" asp-action="Products" class="btn btn-outline-light px-4 py-2" style="border-radius: 0; backdrop-filter: blur(5px);">
+                Silah Sistemleri
+            </a>
+        </div>
     </div>
 </section>
 
 <!-- 2. Stok Video Alanı (Otomatik Oynayan) -->
-<section class="py-5" data-aos="zoom-in" data-aos-duration="1200" data-aos-delay="200">
-    <div class="container">
-        <!-- Video kapsayıcısı: köşeleri yuvarlatılmış ve gölgeli -->
-        <div class="video-container rounded shadow-lg overflow-hidden" style="max-height: 550px; background: #000;">
-            <!-- autoplay, loop, muted özellikleri videonun sessiz ve otomatik döngüde dönmesini sağlar -->
-            <video autoplay loop muted playsinline class="w-100" style="object-fit: cover; opacity: 0.85;">
-                <!-- Kendi videnonu wwwroot/videos/ klasörüne atıp src kısmını değiştirebilirsin -->
-                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-                Tarayıcınız bu videoyu desteklemiyor.
-            </video>
-        </div>
-    </div>
-</section>
+
 
 <!-- Ürün Slider Başlangıcı -->
         <div id="productCarousel" class="carousel slide carousel-fade shadow-sm rounded navy-frame fixed-slider" data-bs-ride="carousel">
@@ -52,7 +68,7 @@
                     
                     <!-- i == 0 ise ilk elemana 'active' sınıfı eklenir -->
                     <div class="carousel-item h-100 @(i == 0 ? "active" : "")">
-                        <div class="row align-items-center h-100 p-4 p-md-5">
+                        <div class="row align-items-center h-100 p-4 p-md-5" data-aos="fade-up" data-aos-duration="1000">
                             <div class="col-md-6 text-center mb-4 mb-md-0">
                                 <img src="@urun.ImageUrl" class="img-fluid rounded shadow" style="max-height: 380px; object-fit: contain;" alt="@urun.Name">
                             </div>

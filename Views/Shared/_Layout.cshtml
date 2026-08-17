@@ -107,17 +107,24 @@
             background-color: #ffffff;
         }
 
-        /* Üst Menü Lacivert Arka Plan */
-        .custom-navbar {
-            background: linear-gradient(135deg, #010846 0%, #012157 100%);
-            border-bottom: 2px solid rgba(255, 255, 255, 0.05); /* Altına çok hafif bir çizgi */
-            /* Siyah tonlarında, aşağı doğru süzülen yumuşak ama belirgin bir gölge */
-            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.4) !important; 
-    
-            /* Menünün diğer elementlerin (özellikle AOS animasyonlarının) üstünde kalmasını garantiler */
-            position: relative;
-            z-index: 1050;
-        }
+        /* Başlangıçtaki Şeffaf Menü (Sadece Anasayfada) */
+.navbar-transparent {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    transition: all 0.4s ease-in-out;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+/* Sayfa Kaydırıldığında Gelecek Lacivert Menü */
+.navbar-scrolled {
+    background: linear-gradient(135deg, #2e2e2e 0%, #260273 100%) !important;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.4) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.4s ease-in-out;
+    padding-top: 20x;
+    padding-bottom: 20px;
+}
 
         /* Üst Menü Logo Ayarları */
         .navbar-brand img {
@@ -175,16 +182,19 @@
 <!-- Sayfanın her zaman tam ekran yüksekliğinde olmasını sağlayan flex sınıfları -->
 <body class="d-flex flex-column min-vh-100">
     <header>
-        <!-- bg-dark yerine custom-navbar ekledik, shadow-sm ile hafif gölge verdik -->
-        <nav class="navbar navbar-expand-lg navbar-dark custom-navbar shadow-sm">
+        @{
+            // Eğer sayfa anasayfa ise menü şeffaf ve sayfanın üstüne yapışık (fixed) olacak.
+            // Diğer sayfalarda ise normal lacivert (scrolled) ve yukarı yapışkan (sticky) olacak.
+            bool isHome = ViewData["IsHome"] != null && (bool)ViewData["IsHome"];
+            string navClasses = isHome ? "fixed-top navbar-transparent" : "sticky-top navbar-scrolled";
+        }
+        <!-- Navbar'a id ekledik ve sınıfları dinamikleştirdik -->
+        <nav id="mainNavbar" class="navbar navbar-expand-lg navbar-dark @navClasses">
             <div class="container">
-                <!-- d-flex ve align-items-center ile logo ve yazıyı kusursuz ortaladık -->
                 <a class="navbar-brand fw-bold d-flex align-items-center" asp-controller="Home" asp-action="Index">
-                    <!-- Logomuz -->
-                    <img src="/images/ddlogo.png" alt="Denge Defence Logo">
-    
-                    <!-- Metalik Yazımız -->
-                    <span class="metallic-text">DENGE DEFENCE</span>
+                    <img src="~/images/5e0e5d75-88ce-434a-aed4-549f0eb6e319-removebg-preview.png" alt="Denge Defence Logo">
+                    <!-- Metalik yazıyı kaldırdık, referanstaki gibi beyaz ve düz yaptık -->
+                    <span class="text-white">DENGE DEFENCE</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
@@ -202,11 +212,24 @@
     </header>
 
     <!-- Ana İçerik Alanı -->
-    <div class="container mt-5 mb-5">
-        <main role="main" class="pb-3">
+    <!-- YENİ HALİ (BUNU YAPIŞTIR): -->
+    @if (ViewData["IsHome"] != null && (bool)ViewData["IsHome"])
+    {
+        <!-- Eğer sayfa anasayfaysa, hiçbir kısıtlama olmadan tam ekran çalışsın -->
+        <main role="main">
             @RenderBody()
         </main>
-    </div>
+    }
+    else
+    {
+        <!-- Diğer sayfalar (Hakkımızda, İletişim vb.) standart kutu içinde kalsın -->
+        <!-- mt-5 pt-5 verdik ki üstteki lacivert menünün altında ezilmesinler -->
+        <div class="container mt-5 pt-5">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    }
 
     <!-- mt-auto sınıfı, sayfa içeriği kısa olsa bile bu alanı en aşağıya iter -->
     <footer class="custom-footer mt-auto">
@@ -285,5 +308,23 @@
             offset: 100 // Öğe ekrana 100px girince animasyon başlasın
         });
     </script>
+
+    <script>
+    // Eğer anasayfadaysak (menü navbar-transparent ile başlıyorsa) scroll olayını dinle
+    var navbar = document.getElementById("mainNavbar");
+    if (navbar.classList.contains("navbar-transparent")) {
+        window.addEventListener("scroll", function () {
+            if (window.scrollY > 50) {
+                // Sayfa 50px'den fazla kaydırıldıysa lacivert menüye geç
+                navbar.classList.remove("navbar-transparent");
+                navbar.classList.add("navbar-scrolled");
+            } else {
+                // En tepeye dönüldüyse tekrar şeffaf ol
+                navbar.classList.add("navbar-transparent");
+                navbar.classList.remove("navbar-scrolled");
+            }
+        });
+    }
+</script>
 </body>
 </html>
