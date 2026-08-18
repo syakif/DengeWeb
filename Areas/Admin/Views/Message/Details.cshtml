@@ -1,0 +1,24 @@
+@model DengeWeb.Models.ContactMessage
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Mesaj Detayı</h2>
+    <a asp-action="Index" class="btn btn-outline-secondary">Geri Dön</a>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <div class="row border-bottom pb-3 mb-3">
+            <div class="col-md-6">
+                <strong>Gönderen:</strong> @Model.AdSoyad <br />
+                <strong>E-Posta:</strong> <a href="mailto:@Model.Eposta">@Model.Eposta</a> <br />
+                <strong>Telefon:</strong> @Model.Telefon
+            </div>
+            <div class="col-md-6 text-md-end text-muted">
+                <strong>Tarih:</strong> @Model.CreatedDate.ToString("dd MMMM yyyy, HH:mm")
+            </div>
+        </div>
+        
+        <h5 class="fw-bold mb-3">Konu: @Model.Konu</h5>
+        <div class="p-4 bg-light rounded" style="white-space: pre-wrap;">@Model.Mesaj</div>
+    </div>
+</div>

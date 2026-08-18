@@ -1,0 +1,32 @@
+@{
+    Layout = null; // Giriş sayfasında sol menü görünmez!
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Giriş</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body class="bg-dark d-flex align-items-center justify-content-center" style="height: 100vh;">
+    <div class="card p-4 shadow" style="width: 400px; border-radius: 10px;">
+        <h3 class="text-center mb-4">Yönetici Girişi</h3>
+        
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger text-center">@ViewBag.Error</div>
+        }
+
+        <form asp-area="Admin" asp-controller="Auth" asp-action="Login" method="post">
+            <div class="mb-3">
+                <label class="form-label">E-Posta</label>
+                <input type="email" name="email" class="form-control" required placeholder="admin@dengedefence.com" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Şifre</label>
+                <input type="password" name="password" class="form-control" required placeholder="admin123" />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Giriş Yap</button>
+        </form>
+    </div>
+</body>
+</html>
