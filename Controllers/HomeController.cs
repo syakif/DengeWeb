@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using DengeWeb.Models;
 using DengeWeb.Services;
+using DengeWeb.Data;
 
 using Microsoft.Extensions.Configuration;
 
@@ -12,13 +13,27 @@ public class HomeController : Controller
     private readonly IMailService _mailService;
     private readonly IConfiguration _config;
 
-    public HomeController(IMailService mailService, IConfiguration config)
+    private readonly ApplicationDbContext _context;
+
+    public HomeController(IMailService mailService, IConfiguration config, ApplicationDbContext context)
     {
         _mailService = mailService;
         _config = config;
+        _context = context;
     }
 
     //public IActionResult Index() => View();
+
+    // --- ÜRÜNLERİMİZ SAYFASI ---
+        public IActionResult Products() // Veya senin action adın ProductsIndex ise öyle bırak
+        {
+            // Eskiden burada var urunler = new List<ProductViewModel> { ... } diyorduk.
+            // ŞİMDİ DOĞRUDAN VERİTABANINDAN ÇEKİYORUZ:
+            // IsActive = true olan tüm ürünleri liste halinde getir.
+            var products = _context.Products.Where(p => p.IsActive).ToList();
+            
+            return View(products);
+        }
     
     // About metodu artık dinamik veri yolluyor
     public IActionResult About()
@@ -39,7 +54,7 @@ public class HomeController : Controller
         return View(model); 
     }
 
-    public IActionResult Products()
+    /*public IActionResult Products()
     {
         var products = new List<ProductViewModel>
         {
@@ -49,10 +64,10 @@ public class HomeController : Controller
             new ProductViewModel { Id = 4, Name = "Güdümlü Füze Sistemi", Description = "Uzun menzilli hassas vuruş kabiliyeti.", ImageUrl = "/images/roketsan.webp" },
         };
         return View(products);
-    }
+    }*/
 
     
-public IActionResult ProductDetails(int id)
+/*public IActionResult ProductDetails(int id)
         {
             var product = new ProductViewModel 
             { 
@@ -63,6 +78,20 @@ public IActionResult ProductDetails(int id)
             };
 
             return View(product);
+        }*/
+
+        public IActionResult ProductDetails(int id)
+        {
+            // Tıklanan ID'ye göre veritabanında arama yapıyoruz
+            var urun = _context.Products.FirstOrDefault(p => p.Id == id && p.IsActive);
+
+            // Eğer ürün veritabanında bulunamazsa kullanıcıyı Ürünler sayfasına geri gönderiyoruz
+            if (urun == null)
+            {
+                return RedirectToAction("Products");
+            }
+
+            return View(urun);
         }
 
     public IActionResult Index()
@@ -80,23 +109,49 @@ public IActionResult ProductDetails(int id)
     public IActionResult Contact() => View();
 
     [HttpPost]
-    public async Task<IActionResult> Contact(ContactViewModel model)
+public async Task<IActionResult> Contact(ContactViewModel formModel)
+{
+    if (ModelState.IsValid)
     {
-        if (ModelState.IsValid)
+        try
         {
-            try
+            // 1. ADIM: EŞLEŞTİRME (MAPPING) VE VERİTABANINA KAYIT
+            // Kullanıcıdan gelen ViewModel'i alıp, veritabanına yazılacak olan Entity sınıfına aktarıyoruz.
+            var dbMessage = new ContactMessage 
             {
-                await _mailService.SendEmailAsync(model);
-                TempData["SuccessMessage"] = "Mesajınız başarıyla gönderildi. En kısa sürede dönüş yapılacaktır.";
-                return RedirectToAction("Contact");
-            }
-            catch (Exception)
-            {
-                TempData["ErrorMessage"] = "Mail gönderilirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.";
-            }
+                // Sol taraf SQL tablosu kolonları <-- Sağ taraf kullanıcının girdiği form verileri
+                AdSoyad = formModel.FullName,
+                Eposta = formModel.Email,
+                Telefon = formModel.Phone,
+                Konu = formModel.Subject,
+                Mesaj = formModel.Message,
+                
+                CreatedDate = DateTime.Now,
+                IsRead = false
+            };
+            
+            // Veriyi SQL'e ekle ve kaydet
+            _context.ContactMessages.Add(dbMessage);
+            await _context.SaveChangesAsync();
+
+            // 2. ADIM: E-POSTA GÖNDERME
+            // Mevcut MailService'in ContactViewModel beklediği için doğrudan formModel'i veriyoruz.
+            await _mailService.SendEmailAsync(formModel);
+
+            // Başarı mesajını verip sayfayı yenile
+            TempData["SuccessMessage"] = "Mesajınız başarıyla gönderildi. En kısa sürede dönüş yapılacaktır.";
+            return RedirectToAction("Contact");
         }
-        return View(model);
+        catch (Exception ex)
+        {
+            // İstersen hatayı console'a yazdırabilirsin
+            TempData["ErrorMessage"] = "İşlem sırasında bir hata oluştu. Lütfen daha sonra tekrar deneyin.";
+        }
     }
+    
+    // Model doğrulaması (Required kuralları) başarısız olursa, formu kullanıcının girdiği bilgilerle geri yükle
+    return View(formModel);
+}
 
  
 }

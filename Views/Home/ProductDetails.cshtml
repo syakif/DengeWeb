@@ -1,4 +1,4 @@
-@model DengeWeb.Models.ProductViewModel
+@model DengeWeb.Models.Product
 @{
     ViewData["Title"] = Model.Name;
 }
@@ -53,7 +53,7 @@
         
         <!-- Dinamik Gelen Açıklama -->
         <p class="text-muted" style="line-height: 1.8; font-size: 1.1rem;">
-            @Model.Description
+            @Model.ShortDescription
         </p>
 
         <!-- Şablonu zenginleştirmek için ekstra bir paragraf -->

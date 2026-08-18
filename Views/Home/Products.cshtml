@@ -1,8 +1,7 @@
-@model List<DengeWeb.Models.ProductViewModel>
+@model List<DengeWeb.Models.Product>
 @{ ViewData["Title"] = "Ürünlerimiz"; }
 
 <style>
-/* SAVUNMA SANAYİİ KONSEPT ÜRÜN KARTLARI V2 */
 
 /* 1. Kapsayıcı Hover Efekti (Düzeltildi) */
 /* SADECE fare genel container'ın İÇİNDEYSE ve DİĞER kartların üzerinde DEĞİLSE kararır */
@@ -145,7 +144,7 @@
                         <!-- NOT: Bu HTML etiketi defense-info-icon'dan HEMEN SONRA gelmelidir (CSS'teki + kuralı için) -->
                         <div class="defense-info-overlay">
                             <!-- Şimdilik Description basıyoruz, veritabanında "UzunAciklama" gibi bir alanın varsa onu koyabilirsin -->
-                            <p>@urun.Description Detaylı teknik özellikleri ve saha kullanım senaryolarını incelemek için ürün sayfasına gidiniz.</p>
+                            <p>@urun.ShortDescription Detaylı teknik özellikleri ve saha kullanım senaryolarını incelemek için ürün sayfasına gidiniz.</p>
                         </div>
 
                         <!-- Orijinal Ürün Görseli -->
@@ -159,7 +158,7 @@
                         
                         <!-- Kısa açıklama -->
                         <p class="text-secondary mb-4 flex-grow-1" style="font-size: 0.95rem; line-height: 1.6;">
-                            @urun.Description
+                            @urun.ShortDescription
                         </p>
                         
                         <!-- Detay İncele Kısmı -->
