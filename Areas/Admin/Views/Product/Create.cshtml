@@ -1,0 +1,49 @@
+@model DengeWeb.Models.Product
+
+<h2>@(Model?.Id == 0 || Model == null ? "Yeni Ürün Ekle" : "Ürünü Düzenle")</h2>
+
+<div class="card shadow-sm border-0 mt-4">
+    <div class="card-body">
+        <form asp-action="@(Model?.Id == 0 || Model == null ? "Create" : "Edit")" method="post">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="CreatedDate" />
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>Ürün Adı</label>
+                    <input asp-for="Name" class="form-control" required />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Durum</label>
+                    <select asp-for="IsActive" class="form-select">
+                        <option value="true">Aktif (Sitede Görünsün)</option>
+                        <option value="false">Pasif (Gizle)</option>
+                    </select>
+                </div>
+                <div class="col-12 mb-3">
+                    <label>Kısa Açıklama</label>
+                    <input asp-for="ShortDescription" class="form-control" />
+                </div>
+                <div class="col-12 mb-3">
+                    <label>Uzun Açıklama</label>
+                    <textarea asp-for="LongDescription" class="form-control" rows="5"></textarea>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Ana Görsel URL</label>
+                    <input asp-for="ImageUrl" class="form-control" placeholder="/images/urun.jpg" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Broşür URL (PDF)</label>
+                    <input asp-for="BrochureUrl" class="form-control" placeholder="/docs/brosur.pdf" />
+                </div>
+                <div class="col-12 mb-3">
+                    <label>Galeri Görselleri (Virgül ile ayırın)</label>
+                    <input type="text" name="galleryUrlsString" class="form-control" value="@ViewBag.GalleryUrlsString" placeholder="/img/1.jpg, /img/2.jpg" />
+                    <small class="text-muted">Örnek: /images/g1.jpg, /images/g2.png</small>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success mt-3">Kaydet</button>
+            <a asp-action="Index" class="btn btn-secondary mt-3 ms-2">İptal</a>
+        </form>
+    </div>
+</div>
