@@ -25,7 +25,7 @@ public class HomeController : Controller
     //public IActionResult Index() => View();
 
     // --- ÜRÜNLERİMİZ SAYFASI ---
-        public IActionResult Products() // Veya senin action adın ProductsIndex ise öyle bırak
+        public IActionResult Products()
         {
             // Eskiden burada var urunler = new List<ProductViewModel> { ... } diyorduk.
             // ŞİMDİ DOĞRUDAN VERİTABANINDAN ÇEKİYORUZ:
@@ -38,20 +38,9 @@ public class HomeController : Controller
     // About metodu artık dinamik veri yolluyor
     public IActionResult About()
     {
-        var model = new AboutViewModel
-        {
-            HeaderTitle = _config["AboutPageContent:HeaderTitle"],
-            HeaderSubtitle = _config["AboutPageContent:HeaderSubtitle"],
-            MissionTitle = _config["AboutPageContent:MissionTitle"],
-            MissionText = _config["AboutPageContent:MissionText"],
-            MissionImage = _config["AboutPageContent:MissionImage"],
-            EthicsTitle = _config["AboutPageContent:EthicsTitle"],
-            EthicsText = _config["AboutPageContent:EthicsText"],
-            EthicsImage = _config["AboutPageContent:EthicsImage"]
-        };
+        var siteSettings = _context.SiteSettings.FirstOrDefault();
 
-        // Modeli sayfaya (View) gönderiyoruz
-        return View(model); 
+        return View(siteSettings); 
     }
 
     /*public IActionResult Products()

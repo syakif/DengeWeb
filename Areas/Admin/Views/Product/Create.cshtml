@@ -4,7 +4,7 @@
 
 <div class="card shadow-sm border-0 mt-4">
     <div class="card-body">
-        <form asp-action="@(Model?.Id == 0 || Model == null ? "Create" : "Edit")" method="post">
+        <form asp-action="@(Model?.Id == 0 || Model == null ? "Create" : "Edit")" method="post" enctype="multipart/form-data">
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="CreatedDate" />
             
@@ -28,18 +28,24 @@
                     <label>Uzun Açıklama</label>
                     <textarea asp-for="LongDescription" class="form-control" rows="5"></textarea>
                 </div>
+                <!-- ANA GÖRSEL (Bilgisayardan Seç / Sürükle Bırak) -->
                 <div class="col-md-6 mb-3">
-                    <label>Ana Görsel URL</label>
-                    <input asp-for="ImageUrl" class="form-control" placeholder="/images/urun.jpg" />
+                    <label>Ana Görsel (Resim Seçin veya Sürükleyin)</label>
+                    <input type="file" name="imageUpload" class="form-control" accept="image/*" />
+                    <!-- Eğer Edit sayfasındaysak ve mevcut bir resim varsa URL'sini gizli tutalım ki kaybolmasın -->
+                    <input type="hidden" asp-for="ImageUrl" />
                 </div>
+                <!-- BROŞÜR (Bilgisayardan Seç / Sürükle Bırak) -->
                 <div class="col-md-6 mb-3">
-                    <label>Broşür URL (PDF)</label>
-                    <input asp-for="BrochureUrl" class="form-control" placeholder="/docs/brosur.pdf" />
+                    <label>Broşür Yükle (PDF Seçin veya Sürükleyin)</label>
+                    <input type="file" name="brochureUpload" class="form-control" accept=".pdf" />
+                    <input type="hidden" asp-for="BrochureUrl" />
                 </div>
+                <!-- GALERİ (Çoklu Dosya Seçimi) -->
                 <div class="col-12 mb-3">
-                    <label>Galeri Görselleri (Virgül ile ayırın)</label>
-                    <input type="text" name="galleryUrlsString" class="form-control" value="@ViewBag.GalleryUrlsString" placeholder="/img/1.jpg, /img/2.jpg" />
-                    <small class="text-muted">Örnek: /images/g1.jpg, /images/g2.png</small>
+                    <label>Galeri Görselleri (Birden fazla resim seçebilirsiniz)</label>
+                    <!-- "multiple" özelliği sayesinde tek seferde 5 resim birden seçilebilir -->
+                    <input type="file" name="galleryUploads" class="form-control" accept="image/*" multiple />
                 </div>
             </div>
             <button type="submit" class="btn btn-success mt-3">Kaydet</button>

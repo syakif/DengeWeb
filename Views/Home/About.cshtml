@@ -1,4 +1,4 @@
-@model DengeWeb.Models.AboutViewModel
+@model DengeWeb.Models.SiteSetting
 @{ ViewData["Title"] = "Hakkımızda"; }
 
 <div class="container my-5">
@@ -8,15 +8,15 @@
 <div class="row mb-5" data-aos="fade-right" data-aos-duration="800">
     <div class="col-12">
         <!-- Modelden gelen başlığı display-5 ve lacivert ile büyüttük -->
-        <h1 class="fw-bold display-5" style="color: #001f54; letter-spacing: 1px;">@Model.HeaderTitle</h1>
+        <h1 class="fw-bold display-5" style="color: #001f54; letter-spacing: 1px;">@Model.AboutTitle</h1>
         
         <!-- Mavi <hr> yerine, kurumsal kalın kısa lacivert çizgimizi koyduk -->
         <div style="height: 4px; width: 60px; background-color: #001f54; margin-top: 15px;"></div>
         
         <!-- Modelden gelen alt başlığı da hemen altına, çok daha şık bir fontla yerleştirdik -->
-        @if(!string.IsNullOrEmpty(Model.HeaderSubtitle))
+        @if(!string.IsNullOrEmpty(Model.AboutDescription))
         {
-            <p class="lead mt-4 text-muted w-75" style="line-height: 1.8;">@Model.HeaderSubtitle</p>
+            <p class="lead mt-4 text-muted w-75" style="line-height: 1.8;">@Model.AboutDescription</p>
         }
     </div>
 </div>
@@ -24,19 +24,19 @@
     <!-- Misyon ve Vizyon Bölümü -->
     <div class="row align-items-center mb-5 mt-4" data-aos="fade-up" data-aos-duration="1000">
         <div class="col-md-7 pe-md-5">
-            <h3 class="fw-bold mb-3" style="color: #001f54;">@Model.MissionTitle</h3>
-            <p>@Model.MissionText</p>
+            <h3 class="fw-bold mb-3" style="color: #001f54;">@Model.AboutMissionVisionTitle</h3>
+            <p>@Model.AboutMissionVisionDescription</p>
         </div>
         <div class="col-md-5 mt-4 mt-md-0">
             <!-- Görsel 1 Placeholder -->
-            <img src="@Model.MissionImage" class="img-fluid rounded shadow navy-frame" alt="Misyon ve Vizyon">
+            <img src="@Model.AboutMissionVisionImageUrl" class="img-fluid rounded shadow navy-frame" alt="Misyon ve Vizyon">
         </div>
     </div>
     <!-- Etik Yaklaşımımız Bölümü -->
     <div class="row mb-5 bg-light py-5 px-3 rounded" data-aos="fade-up" data-aos-duration="1000">
         <div class="col-12">
-            <h3 class="fw-bold mb-4" style="color: #001f54;">@Model.EthicsTitle</h3>
-            <p>@Model.EthicsText</p>
+            <h3 class="fw-bold mb-4" style="color: #001f54;">@Model.AboutEthicalValuesTitle</h3>
+            <p>@Model.AboutEthicalValuesDescription</p>
         </div>
     </div>
 
@@ -45,10 +45,10 @@
         <!-- Bootstrap 'order' class'ları mobilde resmi üste, yazıyı alta alır. Masaüstünde resim solda kalır. -->
         <div class="col-md-5 order-2 order-md-1 mt-4 mt-md-0">
              <!-- Görsel 2 Placeholder -->
-             <img src="/images/denge-elektronik-vizyonumuz.jpg.webp" class="img-fluid rounded shadow navy-frame" alt="Değerlerimiz">
+             <img src="@Model.AboutValuesImageUrl" class="img-fluid rounded shadow navy-frame" alt="Değerlerimiz">
         </div>
         <div class="col-md-7 order-1 order-md-2 ps-md-5">
-            <h3 class="fw-bold mb-4" style="color: #001f54;">Değerlerimiz</h3>
+            <h3 class="fw-bold mb-4" style="color: #001f54;">@Model.AboutValuesTitle</h3>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item bg-transparent border-0 pb-3">
                     <i class="fas fa-check-circle text-primary me-2"></i> Müşterilerimizin memnuniyeti varlık sebebimizdir.
