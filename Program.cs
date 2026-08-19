@@ -11,6 +11,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddMemoryCache(); // Caching için gerekli servis
+
 builder.Services.AddTransient<IMailService, MailService>();
 
 // 1. COOKIE KİMLİK DOĞRULAMA SERVİSİ

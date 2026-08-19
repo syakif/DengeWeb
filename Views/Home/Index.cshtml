@@ -1,4 +1,4 @@
-﻿@model List<DengeWeb.Models.ProductViewModel>
+﻿@model DengeWeb.ViewModels.HomeIndexViewModel
 @{ ViewData["Title"] = "Anasayfa"; }
 
 @{ 
@@ -7,13 +7,97 @@
     ViewData["IsHome"] = true; 
 }
 
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<!-- Google Fonts: Playfair Display -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<!-- Kendi Özel CSS'imiz -->
+<style>
+    /* Siyah arkaplanlı genel bölüm */
+    .hero-slider-section {
+        background-color: #001f54; 
+        padding: 80px 0;
+        overflow: hidden;
+    }
+
+    .swiper-container {
+        width: 100%;
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+
+    /* Her bir kartın boyutları ve tasarımı */
+    .swiper-slide {
+        background-color: #001f54;
+        width: 75%; /* Ortadaki kart ekranda %75 yer kaplayacak */
+        max-width: 900px;
+        border-radius: 20px;
+        box-shadow: 0 15px 50px rgba(0,0,0,0.5);
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    /* Işıltısız ve yeni fontlu başlık tasarımı */
+    .product-slider-title {
+        color: #ffffff; /* Sadece saf beyaz, text-shadow YOK */
+        font-family: 'Playfair Display', serif; /* Yeni fontumuz */
+        font-size: 2.5rem; /* Görseldeki gibi biraz daha büyük ve vurgulu */
+        letter-spacing: 1px; /* Harfler arası ufak bir boşluk */
+    }
+    
+    .slide-description {
+        color: #cccccc;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+    
+    .product-img {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+    }
+
+    /* SAĞ-SOL OK TASARIMI */
+    .swiper-button-next, .swiper-button-prev {
+        color: rgba(255, 255, 255, 0.5); /* Hafif transparan beyaz */
+        transition: 0.3s;
+    }
+    
+    .swiper-button-next:hover, .swiper-button-prev:hover {
+        color: #ffffff; /* Üzerine gelince parlasın */
+        transform: scale(1.1); /* Hafifçe büyüsün */
+    }
+
+    /* NOKTALARI TRANSAPARAN ÇİZGİLERE ÇEVİRME */
+    .swiper-pagination-bullet {
+        width: 35px; /* Çizginin uzunluğu */
+        height: 4px; /* Çizginin kalınlığı */
+        background-color: rgba(255, 255, 255, 0.3); /* Transparan beyaz */
+        border-radius: 2px; /* Keskin köşeleri hafif yumuşat */
+        opacity: 1; /* Swiper'ın varsayılan opaklık ayarını eziyoruz */
+        margin: 0 6px !important;
+        transition: all 0.3s ease;
+    }
+
+    /* Aktif (Şu an ekranda olan) çizginin tasarımı */
+    .swiper-pagination-bullet-active {
+        background-color: #ffffff; /* Tam beyaz */
+        width: 50px; /* Aktif olan çizgi daha uzun dursun */
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Hafif parlama efekti */
+    }
+</style>
+
 <!-- 1. SİNEMATİK TAM EKRAN VİDEO VE YAZI ALANI -->
 <!-- vh-100 ekranın %100 yüksekliğini kaplar -->
 <section class="position-relative d-flex align-items-center justify-content-center w-100 vh-100 overflow-hidden">
     
     <!-- Arka Plan Videosu -->
     <video autoplay loop muted playsinline class="position-absolute w-100 h-100 top-0 start-0" style="object-fit: cover; z-index: -2;">
-        <source src="/images/FPV Drone Flight through Beautiful Iceland Canyon_1080p.mp4" type="video/mp4">
+        <source src="@Model.SiteSettings.IndexStockVideoUrl" type="video/mp4">
     </video>
 
     <!-- Videonun Üzerindeki Siyah Karartma (Opacity: 0.6 = %60 karanlık) -->
@@ -23,10 +107,10 @@
     <div class="container text-center text-white position-relative" style="z-index: 1;" data-aos="fade-up" data-aos-duration="1200">
         <!-- text-shadow ile yazıya referanstaki gibi siyah gölge ekledik -->
         <h1 class="display-3 fw-bold mb-4" style="text-shadow: 2px 4px 10px rgba(0,0,0,0.8); letter-spacing: 2px;">
-            Geleceğin Savunma Teknolojileri
+            @Model.SiteSettings.IndexEntryTitle
         </h1>
         <p class="lead w-75 mx-auto mb-5" style="text-shadow: 1px 2px 6px rgba(0,0,0,0.9); font-size: 1.3rem;">
-            Güvenliğinizi en üst düzeye çıkarmak için yenilikçi, sürdürülebilir ve yüksek teknolojili savunma çözümleri üretiyoruz.
+            @Model.SiteSettings.IndexEntryDescription
         </p>
         
         <!-- İsteğe bağlı: Referans görseldeki gibi yan yana kutucuklu butonlar eklenebilir -->
@@ -38,79 +122,47 @@
     </div>
 </section>
 
-<!-- 2. Stok Video Alanı (Otomatik Oynayan) -->
-
-
-<!-- Ürün Slider Başlangıcı -->
-        <!-- 2. ÜRÜNLER ALANI (Çerçevesiz, Tam Ekran, Lacivert/Beyaz Konsept) -->
-<!-- m-0 ile dış boşlukları sıfırladık ki videoya tam yapışsın -->
-<section class="m-0 py-5 position-relative" style="background: linear-gradient(135deg, #001f54 0%, #000428 65%, #150144 100%);">
-    
-    <!-- İsteğe Bağlı: Video ile slider arasına çok ince, şık bir beyaz ayırıcı çizgi -->
-    <!-- <div class="position-absolute top-0 start-0 w-100" style="height: 2px; background: rgba(255,255,255,0.2);"></div> -->
-
-    <!-- container-fluid ile slider'ın sağdan soldan daha geniş ve ferah durmasını sağladık -->
-    <div class="container-fluid px-md-5">
-        
-        <!-- Frame, border, shadow ve bg sınıfları tamamen kaldırıldı -->
-        <div id="productCarousel" class="carousel slide carousel-fade fixed-slider" data-bs-ride="carousel">
-            
-            <!-- Noktalar (Beyaz Yapıldı) -->
-            <div class="carousel-indicators mb-0 pb-2">
-                @for (int i = 0; i < Model.Count; i++)
+<!-- PRODUCT SLIDER ALANI -->
+<div class="hero-slider-section">
+    <div class="container-fluid">
+        <!-- Swiper Ana Kapsayıcı -->
+        <div class="swiper-container product-swiper" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+            <div class="swiper-wrapper">
+                
+                <!-- Veritabanından gelen ürünleri döngüye alıyoruz -->
+                @foreach (var urun in Model.Products)
                 {
-                    <button type="button" 
-                            data-bs-target="#productCarousel" 
-                            data-bs-slide-to="@i" 
-                            class="@(i == 0 ? "active bg-white" : "bg-white")" 
-                            aria-current="@(i == 0 ? "true" : "false")">
-                    </button>
-                }
-            </div>
-
-            <!-- Ürünler -->
-            <div class="carousel-inner h-100" data-aos="fade-up" data-aos-duration="1000">
-                @for (int i = 0; i < Model.Count; i++)
-                {
-                    var urun = Model[i];
-                    <div class="carousel-item h-100 @(i == 0 ? "active" : "")">
-                        <div class="row align-items-center h-100 p-4 p-md-5">
-                            
-                            <!-- Sol: Resim (Kutu yok, 3D gölge efekti var) -->
-                            <div class="col-md-6 text-center mb-4 mb-md-0">
-                                <!-- filter: drop-shadow komutu, resmi bir kutuya hapsetmek yerine objenin kendi şekline göre gölge atar -->
-                                <img src="@urun.ImageUrl" class="img-fluid" style="max-height: 420px; object-fit: contain; filter: drop-shadow(0px 15px 25px rgba(0,0,0,0.6));" alt="@urun.Name">
+                    <div class="swiper-slide">
+                        <div class="row g-0 align-items-center h-100">
+                            <!-- SOL TARAF: Görsel -->
+                            <div class="col-md-6">
+                                <img src="@urun.ImageUrl" class="product-img" alt="@urun.Name">
                             </div>
                             
-                            <!-- Sağ: Yazı (Bembeyaz ve Daha Büyük) -->
-                            <div class="col-md-6 px-md-5">
-                                <h2 class="fw-bold mb-3 text-white display-5" style="letter-spacing: 1px;">@urun.Name</h2>
-                                <p class="mb-5" style="color: #e0e5ec; font-size: 1.2rem; font-weight: 300;">@urun.Description</p>
+                            <!-- SAĞ TARAF: Metinler ve Buton -->
+                            <div class="col-md-6 p-5">
+                                <h2 class="product-slider-title mb-4">@urun.Name</h2>
+                                <p class="slide-description mb-5">@urun.ShortDescription</p>
                                 
-                                <!-- Buton (İnce, beyaz kenarlıklı, zarif) -->
-                                <a asp-controller="Home" asp-action="Products" class="btn btn-outline-light px-5 py-3 fw-bold" style="border-radius: 0; letter-spacing: 2px;">
-                                    DAHA FAZLA <i class="fas fa-chevron-right ms-2" style="font-size: 0.9rem;"></i>
+                                <a asp-controller="Home" asp-action="ProductDetails" asp-route-id="@urun.Id" class="btn btn-outline-light rounded-pill px-5 py-2 fw-bold text-uppercase" style="letter-spacing: 1px;">
+                                    Daha Fazla
                                 </a>
                             </div>
-                            
                         </div>
                     </div>
                 }
-            </div>
 
-            <!-- Sağ/Sol Oklar (Siyah yapan filter komutu silindi, artık varsayılan olarak beyazlar) -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev" style="width: 8%;">
-                <span class="carousel-control-prev-icon" aria-hidden="true" style="width: 3rem; height: 3rem;"></span>
-                <span class="visually-hidden">Önceki</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next" style="width: 8%;">
-                <span class="carousel-control-next-icon" aria-hidden="true" style="width: 3rem; height: 3rem;"></span>
-                <span class="visually-hidden">Sonraki</span>
-            </button>
+            </div>
             
+            <!-- Alt kısımdaki noktalar (Pagination) -->
+            <div class="swiper-pagination"></div>
+
+            <!-- SAĞ VE SOL OKLAR (Eklendi) -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         </div>
     </div>
-</section>
+</div>
 
 <!-- 3. HAKKIMIZDA ÖZET (CTA) ALANI -->
 <!-- py-5 (padding) değerini py-6 (veya style ile çok daha büyük bir değer) ile artırarak alanı genişletiyoruz -->
@@ -120,7 +172,7 @@
             
             <!-- SOL KOLON: Sadece Beyaz Logo (Boyutu da biraz büyütüldü) -->
             <div class="col-md-5 text-center text-md-start mb-5 mb-md-0" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="100">
-                <img src="~/images/ddlogonobg.png" alt="Denge Defence Logo" class="img-fluid" style="max-height: 240px; object-fit: contain; filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.3));">
+                <img src="@Model.SiteSettings.IndexAboutImageUrl" alt="Denge Defence Logo" class="img-fluid" style="max-height: 240px; object-fit: contain; filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.3));">
             </div>
 
             <!-- SAĞ KOLON: Başlık, Yazı ve Solid Beyaz Buton -->
@@ -129,12 +181,12 @@
                 
                 <!-- Sadece HAKKIMIZDA yazan beyaz başlık -->
                 <h2 class="fw-bold mb-4 text-white" style="letter-spacing: 2px; font-size: 2.5rem; text-transform: uppercase;">
-                    HAKKIMIZDA
+                    @Model.SiteSettings.IndexAboutTitle
                 </h2>
                 
                 <!-- Açıklama Metni (Font boyutu hafif büyütüldü) -->
                 <p class="mb-5" style="color: #e0e5ec; font-size: 1.25rem; font-weight: 300; line-height: 1.8;">
-                    Güvenliğinizi en üst düzeye çıkarmak için yenilikçi ve yüksek teknolojili savunma çözümleri geliştiriyoruz. Uzman mühendis kadromuz ve yerli üretim gücümüzle sektörde öncü olmaktan gurur duyuyoruz.
+                    @Model.SiteSettings.IndexAboutDescription
                 </p>
                 
                 <!-- YENİ BUTON: Arka plan tam beyaz, yazı lacivert, içi dolgulu (solid) -->
@@ -155,7 +207,7 @@
                 </style>
 
                 <a asp-controller="Home" asp-action="About" class="btn btn-solid-white px-5 py-3 fw-bold" style="border-radius: 0; letter-spacing: 1px;">
-                    HAKKIMIZDA DAHA FAZLA <i class="fas fa-arrow-right ms-2"></i>
+                    @Model.SiteSettings.IndexAboutButtonText <i class="fas fa-arrow-right ms-2"></i>
                 </a>
                 
             </div>
@@ -168,14 +220,53 @@
 <!-- Taslaktaki "beyaz, çok hafif gri arkaplan" notuna uygun #f8f9fa arka planı verildi -->
 <section class="py-5 mb-5" style="background-color: #f8f9fa;" data-aos="fade-up" data-aos-duration="1000">
     <div class="container text-center py-5">
-        <h2 class="fw-bold mb-2" style="color: #001f54; letter-spacing: 2px;">İLETİŞİM</h2>
-        <h4 class="text-muted mb-4 fw-light">Bilgi almak ister misiniz?</h4>
+        <h2 class="fw-bold mb-2" style="color: #001f54; letter-spacing: 2px;">@Model.SiteSettings.IndexContactTitle</h2>
+        <h4 class="text-muted mb-4 fw-light">@Model.SiteSettings.IndexContactSubtitle</h4>
         <p class="mb-5 w-50 mx-auto text-secondary">
-            Ürünlerimiz hakkında detaylı bilgi almak, projelerinize özel çözümler üretmek ve uzman mühendis kadromuzla görüşmek için hemen iletişime geçin.
+            @Model.SiteSettings.IndexContactDescription
         </p>
         <!-- Ovalleştirilmiş, belirgin "İletişim" butonu -->
         <a asp-controller="Home" asp-action="Contact" class="btn btn-dark btn-lg px-5 py-3 shadow-sm" style="border-radius: 50px; font-weight: 600; letter-spacing: 1px;">
-            İLETİŞİM SAYFASI
+            @Model.SiteSettings.IndexContactButtonText
         </a>
     </div>
 </section>
+
+<!-- Swiper JS Kütüphanesi -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!-- Bizim Slider'ı Başlatan Kod -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var swiper = new Swiper('.product-swiper', {
+            effect: 'coverflow', // Görseldeki 3D efekti veren ana özellik
+            grabCursor: true, // Fare ile tutulup kaydırılmasını sağlar
+            centeredSlides: true, // Aktif olan slaytı ekranın tam ortasına alır
+            slidesPerView: 'auto',
+            initialSlide: 1, // Sayfa açıldığında 2. ürünü ortada gösterir
+            loop: true, // Sona gelince başa dönmesini sağlar
+            coverflowEffect: {
+                rotate: 0, // Kartları döndürme, sadece dik dursunlar
+                stretch: -50, // Kartları birbirine yaklaştırır
+                depth: 250, // Arkadaki kartların ne kadar geride (küçük) duracağını belirler
+                modifier: 1,
+                slideShadows: true, // Yan kartlara otomatik karanlık gölge atar
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+
+            // YENİ EKLENEN KISIM: Okları aktifleştir
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            }
+        });
+    });
+</script>

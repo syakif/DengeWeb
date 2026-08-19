@@ -1,4 +1,20 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.Extensions.Caching.Memory
+@using DengeWeb.Data
+@using DengeWeb.Models
+@inject IMemoryCache _cache
+@inject ApplicationDbContext _context
+
+@{
+    // Cache'de veri var mı diye kontrol ediyoruz
+    if (!_cache.TryGetValue("SiteSettingsCache", out SiteSetting siteSettings))
+    {
+        // Yoksa veritabanından çek ve Cache'e at (boş gelme ihtimaline karşı yeni bir instance oluşturduk)
+        siteSettings = _context.SiteSettings.FirstOrDefault() ?? new SiteSetting();
+        _cache.Set("SiteSettingsCache", siteSettings, TimeSpan.FromDays(1));
+    }
+}
+
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="utf-8" />
@@ -10,15 +26,17 @@
     <title>@ViewData["Title"] | Denge Defence</title>
     
     <!-- FAVICON -->
-    <link rel="icon" type="image/png" href="/images/defence-Photoroom-1536x956.png">
+    <link rel="icon" type="image/png" href="@siteSettings.FaviconUrl" />
 
     <!-- AOS (Animate On Scroll) -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <!-- FontAwesome (Sosyal Medya İkonları İçin) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
     <style>
         /* Tasarıma Özel Koyu Mavi Degrade Arka Plan */
@@ -281,11 +299,11 @@
                 <a class="navbar-brand fw-bold d-flex align-items-center" asp-controller="Home" asp-action="Index">
                     <!-- 1. BEYAZ LOGO (Anasayfa açıldığında görünecek) -->
                     <!-- src kısmına elindeki BEYAZ logo dosyasının adını yaz -->
-                    <img id="logoWhite" src="/images/ddlogonobg.png" alt="Denge Defence Logo" style="height: 100px; margin-right: 0px; object-fit: contain; transition: opacity 0.3s;">
+                    <img id="logoWhite" src="@siteSettings.HeaderWhiteLogoUrl" alt="Denge Defence Logo" style="height: 100px; margin-right: 0px; object-fit: contain; transition: opacity 0.3s;">
             
                     <!-- 2. RENKLİ LOGO (Menü lacivert olunca görünecek - Başlangıçta gizli (d-none)) -->
                     <!-- src kısmına elindeki RENKLİ logo dosyasının adını yaz -->
-                    <img id="logoColor" src="/images/defence-Photoroom-1536x956.png" alt="Denge Defence Logo" class="d-none" style="height: 100px; margin-right: 0px; object-fit: contain; transition: opacity 0.3s;">
+                    <img id="logoColor" src="@siteSettings.HeaderLogoUrl" alt="Denge Defence Logo" class="d-none" style="height: 100px; margin-right: 0px; object-fit: contain; transition: opacity 0.3s;">
             
                     <!--<span class="text-white">DENGE DEFENCE</span>-->
                 </a>
@@ -332,7 +350,7 @@
                 <!-- 1. Sütun: Logo -->
                 <div class="col-md-4 mb-4 mb-md-0">
                     <div class="d-flex align-items-center mb-2">
-                        <img src="/images/ddlogonobg.png" alt="Denge Defence Logo" style="height: 120px; margin-right: 15px; object-fit: contain;">
+                        <img src="@siteSettings.FooterLogoUrl" alt="Denge Defence Logo" style="height: 120px; margin-right: 15px; object-fit: contain;">
                     </div>
                 </div>
 
@@ -340,12 +358,11 @@
                 <div class="col-md-4 mb-4 mb-md-0">
                     <h5 class="fw-bold mb-4" style="color: #ffffff;">İletişim</h5>
                     <ul class="list-unstyled text-white" style="line-height: 1.8; font-size: 0.95rem;">
-                        <li>Küçükbakkalköy Mah. Derebey Sk. No: 6 34750</li>
-                        <li>Ataşehir / İstanbul</li>
-                        <li>0216 573 40 40</li>
+                        <li>@siteSettings.Address</li>
+                        <li>@siteSettings.Phone</li>
                         <li class="mt-4">
-                            <a href="mailto:info@dengedefence.com.tr" class="text-muted text-decoration-none border-bottom border-secondary pb-1">
-                                info@dengedefence.com.tr
+                            <a href="mailto:@siteSettings.Email" class="text-muted text-decoration-none border-bottom border-secondary pb-1">
+                                @siteSettings.Email
                             </a>
                         </li>
                     </ul>
@@ -355,11 +372,11 @@
                 <div class="col-md-4">
                     <h5 class="fw-bold mb-4" style="color: #ffffff;">Sosyal</h5>
                     <div class="footer-socials">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-x-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="@siteSettings.FooterInstagramUrl" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="@siteSettings.FooterTwitterUrl" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="@siteSettings.FooterLinkedinUrl" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="@siteSettings.FooterFacebookUrl" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="@siteSettings.FooterYoutubeUrl" target="_blank"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
                 
@@ -373,7 +390,6 @@
                     </p>
                 </div>
             </div>
-            <!--5414027382-->
         </div>
     </footer>
 

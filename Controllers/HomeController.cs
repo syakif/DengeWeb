@@ -1,8 +1,10 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using DengeWeb.Models;
+using DengeWeb.ViewModels;
 using DengeWeb.Services;
 using DengeWeb.Data;
+using Microsoft.Extensions.Caching.Memory;
 
 using Microsoft.Extensions.Configuration;
 
@@ -12,17 +14,43 @@ public class HomeController : Controller
 {
     private readonly IMailService _mailService;
     private readonly IConfiguration _config;
+    private readonly IMemoryCache _cache; // Cache servisini çağırıyoruz
 
     private readonly ApplicationDbContext _context;
 
-    public HomeController(IMailService mailService, IConfiguration config, ApplicationDbContext context)
+    public HomeController(IMailService mailService, IConfiguration config, IMemoryCache cache, ApplicationDbContext context)
     {
         _mailService = mailService;
         _config = config;
+        _cache = cache;
         _context = context;
     }
 
-    //public IActionResult Index() => View();
+    public IActionResult Index()
+{
+    // 1. Önce RAM'e (Cache) bak. Eğer "SiteSettings" adında bir veri varsa direkt onu al
+    if (!_cache.TryGetValue("SiteSettingsCache", out SiteSetting siteSettings))
+    {
+        // 2. Eğer RAM'de yoksa, SQL'den çek. (Veritabanı boşsa çökmemesi için ?? new SiteSetting() eklendi)
+        siteSettings = _context.SiteSettings.FirstOrDefault() ?? new SiteSetting();
+
+        // 3. Çektiğin bu veriyi 1 günlüğüne RAM'e kaydet
+        _cache.Set("SiteSettingsCache", siteSettings, TimeSpan.FromDays(1));
+    }
+
+    // 4. Slider'da göstermek için aktif ürünleri veritabanından çek
+    var products = _context.Products.Where(p => p.IsActive).ToList();
+
+    // 5. Hem RAM'den gelen ayarları hem SQL'den gelen ürünleri tek bir Çantaya (ViewModel) koy
+    var viewModel = new HomeIndexViewModel
+    {
+        SiteSettings = siteSettings,
+        Products = products
+    };
+
+    // 6. Çantayı sayfaya gönder
+    return View(viewModel); 
+}
 
     // --- ÜRÜNLERİMİZ SAYFASI ---
         public IActionResult Products()
@@ -38,36 +66,19 @@ public class HomeController : Controller
     // About metodu artık dinamik veri yolluyor
     public IActionResult About()
     {
-        var siteSettings = _context.SiteSettings.FirstOrDefault();
+        // 1. Önce RAM'e (Cache) bak. Eğer "SiteSettings" adında bir veri varsa direkt onu al (SQL'e GİTME!)
+        if (!_cache.TryGetValue("SiteSettingsCache", out SiteSetting siteSettings))
+        {
+            // 2. Eğer RAM'de yoksa (sunucu yeni açılmışsa), SQL'den çek.
+            siteSettings = _context.SiteSettings.FirstOrDefault();
 
-        return View(siteSettings); 
+            // 3. Çektiğin bu veriyi sonsuza kadar (veya 1 günlüğüne) RAM'e kaydet ki bir sonraki kullanıcı SQL'i yormasın.
+            _cache.Set("SiteSettingsCache", siteSettings, TimeSpan.FromDays(1));
+        }
+
+        return View(siteSettings); // İster DTO olsun ister devasa bir model, RAM'den geldiği için maliyet SIFIRDIR.
     }
 
-    /*public IActionResult Products()
-    {
-        var products = new List<ProductViewModel>
-        {
-            new ProductViewModel { Id = 1, Name = "Taktik İHA X-1", Description = "Gelişmiş keşif ve gözetleme sistemleri.", ImageUrl = "/images/Patroller-IHA.jpg" },
-            new ProductViewModel { Id = 2, Name = "Zırhlı Personel Taşıyıcı", Description = "Yüksek balistik koruma ve arazi kabiliyeti.", ImageUrl = "/images/GelkcEyWgAATVpF-aspect-ratio-1280-720.webp" },
-            new ProductViewModel { Id = 3, Name = "Haberleşme Sistemleri", Description = "Kriptografik askeri haberleşme altyapısı.", ImageUrl = "/images/images.jpg" },
-            new ProductViewModel { Id = 4, Name = "Güdümlü Füze Sistemi", Description = "Uzun menzilli hassas vuruş kabiliyeti.", ImageUrl = "/images/roketsan.webp" },
-        };
-        return View(products);
-    }*/
-
-    
-/*public IActionResult ProductDetails(int id)
-        {
-            var product = new ProductViewModel 
-            { 
-                Id = id, 
-                Name = "Taktik İHA X-1", 
-                Description = "Gelişmiş keşif ve gözetleme sistemleri...", 
-                ImageUrl = "/images/Patroller-IHA.jpg"
-            };
-
-            return View(product);
-        }*/
 
         public IActionResult ProductDetails(int id)
         {
@@ -83,17 +94,7 @@ public class HomeController : Controller
             return View(urun);
         }
 
-    public IActionResult Index()
-    {
-        var products = new List<ProductViewModel>
-        {
-            new ProductViewModel { Id = 1, Name = "Taktik İHA X-1", Description = "Gelişmiş keşif ve gözetleme sistemleri.", ImageUrl = "/images/Patroller-IHA.jpg" },
-            new ProductViewModel { Id = 2, Name = "Zırhlı Personel Taşıyıcı", Description = "Yüksek balistik koruma ve arazi kabiliyeti.", ImageUrl = "/images/GelkcEyWgAATVpF-aspect-ratio-1280-720.webp" },
-            new ProductViewModel { Id = 3, Name = "Haberleşme Sistemleri", Description = "Kriptografik askeri haberleşme altyapısı.", ImageUrl = "/images/images.jpg" },
-            new ProductViewModel { Id = 4, Name = "Güdümlü Füze Sistemi", Description = "Uzun menzilli hassas vuruş kabiliyeti.", ImageUrl = "/images/roketsan.webp" },
-        };
-        return View(products);
-    }
+    
 
     public IActionResult Contact() => View();
 
