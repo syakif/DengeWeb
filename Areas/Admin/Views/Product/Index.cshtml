@@ -13,6 +13,7 @@
                     <th>Görsel</th>
                     <th>Ürün Adı</th>
                     <th>Durum</th>
+                    <th>Dil</th>
                     <th>Eklenme Tarihi</th>
                     <th class="text-end">İşlemler</th>
                 </tr>
@@ -27,6 +28,7 @@
                             @if(item.IsActive) { <span class="badge bg-success">Aktif</span> }
                             else { <span class="badge bg-danger">Pasif</span> }
                         </td>
+                        <td class="align-middle">@item.Language</td>
                         <td class="align-middle">@item.CreatedDate.ToString("dd.MM.yyyy")</td>
                         <td class="text-end align-middle">
                             <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Düzenle</a>

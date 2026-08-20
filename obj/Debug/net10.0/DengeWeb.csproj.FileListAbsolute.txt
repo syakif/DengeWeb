@@ -233,3 +233,12 @@ C:\Users\Administrator.MSTPC\Desktop\Projects\DengeWeb\bin\Debug\net10.0\runtime
 C:\Users\Administrator.MSTPC\Desktop\Projects\DengeWeb\bin\Debug\net10.0\runtimes\win-arm64\native\msalruntime_arm64.dll
 C:\Users\Administrator.MSTPC\Desktop\Projects\DengeWeb\bin\Debug\net10.0\runtimes\win-x64\native\msalruntime.dll
 C:\Users\Administrator.MSTPC\Desktop\Projects\DengeWeb\bin\Debug\net10.0\runtimes\win-x86\native\msalruntime_x86.dll
+C:\Users\Administrator.MSTPC\Desktop\Projects\DengeWeb\bin\Debug\net10.0\en\DengeWeb.resources.dll
+C:\Users\Administrator.MSTPC\Desktop\Projects\DengeWeb\bin\Debug\net10.0\tr\DengeWeb.resources.dll
+C:\Users\Administrator.MSTPC\Desktop\Projects\DengeWeb\obj\Debug\net10.0\DengeWeb.Resources.Views.Shared._Layout.en.resources
+C:\Users\Administrator.MSTPC\Desktop\Projects\DengeWeb\obj\Debug\net10.0\DengeWeb.Resources.Views.Shared._Layout.tr.resources
+C:\Users\Administrator.MSTPC\Desktop\Projects\DengeWeb\obj\Debug\net10.0\DengeWeb.csproj.GenerateResource.cache
+C:\Users\Administrator.MSTPC\Desktop\Projects\DengeWeb\obj\Debug\net10.0\en\DengeWeb.resources.cs
+C:\Users\Administrator.MSTPC\Desktop\Projects\DengeWeb\obj\Debug\net10.0\en\DengeWeb.resources.dll
+C:\Users\Administrator.MSTPC\Desktop\Projects\DengeWeb\obj\Debug\net10.0\tr\DengeWeb.resources.cs
+C:\Users\Administrator.MSTPC\Desktop\Projects\DengeWeb\obj\Debug\net10.0\tr\DengeWeb.resources.dll

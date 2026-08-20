@@ -121,6 +121,7 @@ namespace DengeWeb.Areas.Admin.Controllers
             if (existingProduct == null) return NotFound();
 
             // 2. Sadece metinsel değerleri güncelliyoruz
+            existingProduct.Language = product.Language;
             existingProduct.Name = product.Name;
             existingProduct.ShortDescription = product.ShortDescription;
             existingProduct.LongDescription = product.LongDescription;

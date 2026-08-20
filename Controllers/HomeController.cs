@@ -5,8 +5,8 @@ using DengeWeb.ViewModels;
 using DengeWeb.Services;
 using DengeWeb.Data;
 using Microsoft.Extensions.Caching.Memory;
-
 using Microsoft.Extensions.Configuration;
+using System.Globalization;
 
 namespace DengeWeb.Controllers;
 
@@ -28,18 +28,26 @@ public class HomeController : Controller
 
     public IActionResult Index()
 {
+
+    // Sistem o an hangi dilde çalışıyorsa kodunu alır ("tr" veya "en")
+    string currentLang = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+
     // 1. Önce RAM'e (Cache) bak. Eğer "SiteSettings" adında bir veri varsa direkt onu al
     if (!_cache.TryGetValue("SiteSettingsCache", out SiteSetting siteSettings))
     {
         // 2. Eğer RAM'de yoksa, SQL'den çek. (Veritabanı boşsa çökmemesi için ?? new SiteSetting() eklendi)
-        siteSettings = _context.SiteSettings.FirstOrDefault() ?? new SiteSetting();
+        siteSettings = _context.SiteSettings.FirstOrDefault(s => s.Language == currentLang) ?? new SiteSetting();
 
         // 3. Çektiğin bu veriyi 1 günlüğüne RAM'e kaydet
         _cache.Set("SiteSettingsCache", siteSettings, TimeSpan.FromDays(1));
     }
 
     // 4. Slider'da göstermek için aktif ürünleri veritabanından çek
-    var products = _context.Products.Where(p => p.IsActive).ToList();
+    //var products = _context.Products.Where(p => p.IsActive).ToList();
+
+    var products = _context.Products
+                       .Where(p => p.IsActive && p.Language == currentLang) // Sadece aktif olan ve sitenin mevcut diliyle eşleşen ürünleri al
+                       .ToList();
 
     // 5. Hem RAM'den gelen ayarları hem SQL'den gelen ürünleri tek bir Çantaya (ViewModel) koy
     var viewModel = new HomeIndexViewModel
@@ -51,17 +59,6 @@ public class HomeController : Controller
     // 6. Çantayı sayfaya gönder
     return View(viewModel); 
 }
-
-    // --- ÜRÜNLERİMİZ SAYFASI ---
-        public IActionResult Products()
-        {
-            // Eskiden burada var urunler = new List<ProductViewModel> { ... } diyorduk.
-            // ŞİMDİ DOĞRUDAN VERİTABANINDAN ÇEKİYORUZ:
-            // IsActive = true olan tüm ürünleri liste halinde getir.
-            var products = _context.Products.Where(p => p.IsActive).ToList();
-            
-            return View(products);
-        }
     
     // About metodu artık dinamik veri yolluyor
     public IActionResult About()
@@ -79,13 +76,40 @@ public class HomeController : Controller
         return View(siteSettings); // İster DTO olsun ister devasa bir model, RAM'den geldiği için maliyet SIFIRDIR.
     }
 
+    // --- ÜRÜNLERİMİZ SAYFASI ---
+    public IActionResult Products()
+        {
+        // 1. Sitenin dilini bilmemiz gerektiği için ayarları Cache'den çağırıyoruz
+        if (!_cache.TryGetValue("SiteSettingsCache", out SiteSetting siteSettings))
+        {
+            siteSettings = _context.SiteSettings.FirstOrDefault() ?? new SiteSetting();
+            _cache.Set("SiteSettingsCache", siteSettings, TimeSpan.FromDays(1));
+        }
+
+        // 2. Hem aktif olan HEM DE sitenin mevcut diliyle eşleşen ürünleri çekiyoruz
+        var products = _context.Products
+                        .Where(p => p.IsActive && p.Language == siteSettings.Language)
+                        .ToList();
+                           
+        return View(products);
+    }
+
 
         public IActionResult ProductDetails(int id)
         {
-            // Tıklanan ID'ye göre veritabanında arama yapıyoruz
-            var urun = _context.Products.FirstOrDefault(p => p.Id == id && p.IsActive);
+            // 1. Yine sitenin mevcut ayarlarını (dilini) Cache'den çağırıyoruz
+            if (!_cache.TryGetValue("SiteSettingsCache", out SiteSetting siteSettings))
+            {
+                siteSettings = _context.SiteSettings.FirstOrDefault() ?? new SiteSetting();
+                _cache.Set("SiteSettingsCache", siteSettings, TimeSpan.FromDays(1));
+            }
 
-            // Eğer ürün veritabanında bulunamazsa kullanıcıyı Ürünler sayfasına geri gönderiyoruz
+            // 2. Tıklanan ID'ye sahip, aktif olan VE sitenin diline uygun olan ürünü arıyoruz
+            var urun = _context.Products.FirstOrDefault(p => p.Id == id && 
+                                                     p.IsActive && 
+                                                     p.Language == siteSettings.Language);
+
+            // Eğer ürün bulunamazsa veya farklı bir dile aitse, kullanıcıyı listeye geri gönder
             if (urun == null)
             {
                 return RedirectToAction("Products");
