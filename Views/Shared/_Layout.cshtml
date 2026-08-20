@@ -1,19 +1,24 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
-@inject IViewLocalizer Localizer
-
-@using Microsoft.Extensions.Caching.Memory
+﻿@using Microsoft.Extensions.Caching.Memory
 @using DengeWeb.Data
 @using DengeWeb.Models
+@using System.Globalization <!-- O anki dili bulmak için ekledik -->
+@using Microsoft.AspNetCore.Mvc.Localization
 @inject IMemoryCache _cache
 @inject ApplicationDbContext _context
+@inject IViewLocalizer Localizer
 
 @{
-    // Cache'de veri var mı diye kontrol ediyoruz
-    if (!_cache.TryGetValue("SiteSettingsCache", out SiteSetting siteSettings))
+    // 1. Sitenin o anki dilini alıyoruz ("tr" veya "en")
+    string currentLang = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+    
+    // 2. Cache anahtarını dile özel yapıyoruz (Örn: SiteSettings_tr)
+    string cacheKey = "SiteSettings_" + currentLang;
+
+    if (!_cache.TryGetValue(cacheKey, out SiteSetting siteSettings))
     {
-        // Yoksa veritabanından çek ve Cache'e at (boş gelme ihtimaline karşı yeni bir instance oluşturduk)
-        siteSettings = _context.SiteSettings.FirstOrDefault() ?? new SiteSetting();
-        _cache.Set("SiteSettingsCache", siteSettings, TimeSpan.FromDays(1));
+        // 3. Veritabanından sadece o dile ait ayarları çekiyoruz
+        siteSettings = _context.SiteSettings.FirstOrDefault(s => s.Language == currentLang) ?? new SiteSetting();
+        _cache.Set(cacheKey, siteSettings, TimeSpan.FromDays(1));
     }
 }
 
@@ -323,7 +328,7 @@
                 </div>
                 <div class="nav-item dropdown ms-3">
     <a class="nav-link dropdown-toggle text-white" href="#" id="langDropdown" role="button" data-bs-toggle="dropdown">
-        <i class="fas fa-globe"></i>@Localizer["HeaderLang"]
+        <i class="fas fa-globe"></i>
     </a>
     <ul class="dropdown-menu">
         <li>

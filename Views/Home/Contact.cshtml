@@ -15,11 +15,11 @@
 }
 
 @model DengeWeb.Models.ContactViewModel
-@{ ViewData["Title"] = "İletişim"; }
+@{ ViewData["Title"] = @Localizer["ContactTitle"]; }
 
 <div class="row mb-5" data-aos="fade-right" data-aos-duration="800">
     <div class="col-12">
-        <h1 class="fw-bold display-5" style="color: #001f54; letter-spacing: 1px;">İletişim</h1>
+        <h1 class="fw-bold display-5" style="color: #001f54; letter-spacing: 1px;">@Localizer["ContactTitle"]</h1>
         <div style="height: 4px; width: 60px; background-color: #001f54; margin-top: 15px;"></div>
     </div>
 </div>
@@ -142,7 +142,7 @@
     <!-- Tasarımla uyumlu, köşeli ve sağ tarafı lacivert çizgili kutu -->
     <div class="p-5 bg-light rounded-0 h-100" style="border-right: 4px solid #001f54;">
         
-        <h4 class="fw-bold mb-4" style="color: #001f54;">Bize Ulaşın</h4>
+        <h4 class="fw-bold mb-4" style="color: #001f54;">@Localizer["ContactUs"]</h4>
 
         <!-- Adres -->
         <div class="d-flex align-items-start text-muted mb-4" style="line-height: 1.8;">
@@ -182,20 +182,20 @@
             <div class="col-lg-7" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
                 
                 <!-- YENİ BAŞLIK: Formun üstüne alındı, boyutu küçüldü (h3) ve alt çizgisi kaldırıldı -->
-                <h3 class="fw-bold mb-5" style="color: #001f54; letter-spacing: 0.5px;">İletişim Formu</h3>
+                <h3 class="fw-bold mb-5" style="color: #001f54; letter-spacing: 0.5px;">@Localizer["ContactForm"]</h3>
 
                 <form method="post" asp-action="Contact" method="post">
                     <!-- 1. SATIR: Ad Soyad ve E-Posta -->
                     <div class="row">
                         <!-- AD SOYAD -->
                         <div class="col-md-6 defense-form-group">
-                            <label class="defense-label">Ad Soyad</label>
-                            <input type="text" class="defense-input" placeholder="Adınızı ve soyadınızı girin" name="FullName" required>
+                            <label class="defense-label">@Localizer["ContactNameSurname"]</label>
+                            <input type="text" class="defense-input" placeholder="@Localizer["ContactNameSurnamePH"]" name="FullName" required>
                         </div>
                         <!-- E-POSTA -->
                         <div class="col-md-6 defense-form-group">
-                            <label class="defense-label">E-Posta</label>
-                            <input type="email" class="defense-input" placeholder="E-posta adresinizi girin" name="Email" required>
+                            <label class="defense-label">@Localizer["ContactEmail"]</label>
+                            <input type="email" class="defense-input" placeholder="@Localizer["ContactEmailPH"]" name="Email" required>
                         </div>
                     </div>
 
@@ -203,27 +203,27 @@
                     <div class="row">
                         <!-- TELEFON -->
                         <div class="col-md-6 defense-form-group">
-                            <label class="defense-label">Telefon</label>
-                            <input type="tel" class="defense-input" placeholder="Telefon numaranızı girin" name="Phone" required>
+                            <label class="defense-label">@Localizer["ContactPhone"]</label>
+                            <input type="tel" class="defense-input" placeholder="@Localizer["ContactPhonePH"] " name="Phone" required>
                         </div>
                         <!-- KONU -->
                         <div class="col-md-6 defense-form-group">
-                            <label class="defense-label">Konu</label>
-                            <input type="text" class="defense-input" placeholder="Konuyu belirtin" name="Subject" required>
+                            <label class="defense-label">@Localizer["ContactSubject"]</label>
+                            <input type="text" class="defense-input" placeholder="@Localizer["ContactSubjectPH"]" name="Subject" required>
                         </div>
                     </div>
 
                     <!-- 3. SATIR: Mesaj (Tam Genişlik) -->
                     <div class="row">
                         <div class="col-12 defense-form-group">
-                            <label class="defense-label">Mesaj</label>
-                            <textarea class="defense-input" rows="7" placeholder="İletmek istediğiniz detayları buraya yazabilirsiniz..." style="resize: none;" name="Message" required></textarea>
+                            <label class="defense-label">@Localizer["ContactMessage"]</label>
+                            <textarea class="defense-input" rows="7" placeholder="@Localizer["ContactMessagePH"]" style="resize: none;" name="Message" required></textarea>
                         </div>
                     </div>
 
                     <!-- GÖNDER BUTONU -->
                     <div class="mt-2 text-start">
-                        <button type="submit" class="submit-btn">Gönder <i class="fa-solid fa-arrow-right"></i></button>
+                        <button type="submit" class="submit-btn">@Localizer["ContactSendButton"] <i class="fa-solid fa-arrow-right"></i></button>
                     </div>
                 </form>
 

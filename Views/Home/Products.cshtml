@@ -1,5 +1,5 @@
 @model List<DengeWeb.Models.Product>
-@{ ViewData["Title"] = "Ürünlerimiz"; }
+@{ ViewData["Title"] = @Localizer["ProductsTitle"]; }
 
 <style>
 
@@ -116,7 +116,7 @@
 <!-- Ana Başlık (Bir önceki adımda yaptığımız Kurumsal İmza Tasarımı) -->
 <div class="row mb-5" data-aos="fade-right" data-aos-duration="800">
     <div class="col-12">
-        <h1 class="fw-bold display-5" style="color: #001f54; letter-spacing: 1px;">Ürünlerimiz</h1>
+        <h1 class="fw-bold display-5" style="color: #001f54; letter-spacing: 1px;">@Localizer["ProductsTitle"]</h1>
         <div style="height: 4px; width: 60px; background-color: #001f54; margin-top: 15px;"></div>
     </div>
 </div>
@@ -144,7 +144,7 @@
                         <!-- NOT: Bu HTML etiketi defense-info-icon'dan HEMEN SONRA gelmelidir (CSS'teki + kuralı için) -->
                         <div class="defense-info-overlay">
                             <!-- Şimdilik Description basıyoruz, veritabanında "UzunAciklama" gibi bir alanın varsa onu koyabilirsin -->
-                            <p>@urun.ShortDescription Detaylı teknik özellikleri ve saha kullanım senaryolarını incelemek için ürün sayfasına gidiniz.</p>
+                            <p>@urun.ShortDescription @Localizer["ProductsInfo"]</p>
                         </div>
 
                         <!-- Orijinal Ürün Görseli -->

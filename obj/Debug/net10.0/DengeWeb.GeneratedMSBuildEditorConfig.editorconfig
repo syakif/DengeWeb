@@ -123,6 +123,30 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-bighyzn13q
 
+[C:/Users/Administrator.MSTPC/Desktop/Projects/DengeWeb/Resources/Views/Home/Contact.en.resx]
+build_metadata.AdditionalFiles.TargetPath = Resources\Views\Home\Contact.en.resx
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Administrator.MSTPC/Desktop/Projects/DengeWeb/Resources/Views/Home/Contact.tr.resx]
+build_metadata.AdditionalFiles.TargetPath = Resources\Views\Home\Contact.tr.resx
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Administrator.MSTPC/Desktop/Projects/DengeWeb/Resources/Views/Home/Index.en.resx]
+build_metadata.AdditionalFiles.TargetPath = Resources\Views\Home\Index.en.resx
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Administrator.MSTPC/Desktop/Projects/DengeWeb/Resources/Views/Home/Index.tr.resx]
+build_metadata.AdditionalFiles.TargetPath = Resources\Views\Home\Index.tr.resx
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Administrator.MSTPC/Desktop/Projects/DengeWeb/Resources/Views/Home/Products.en.resx]
+build_metadata.AdditionalFiles.TargetPath = Resources\Views\Home\Products.en.resx
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Administrator.MSTPC/Desktop/Projects/DengeWeb/Resources/Views/Home/Products.tr.resx]
+build_metadata.AdditionalFiles.TargetPath = Resources\Views\Home\Products.tr.resx
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Administrator.MSTPC/Desktop/Projects/DengeWeb/Resources/Views/Shared/_Layout.en.resx]
 build_metadata.AdditionalFiles.TargetPath = Resources\Views\Shared\_Layout.en.resx
 build_metadata.AdditionalFiles.CssScope = 
