@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System;
 
 namespace DengeWeb.Models
@@ -5,6 +6,10 @@ namespace DengeWeb.Models
     public class Product
     {
         public int Id { get; set; }
+
+        // Yeni eklenen dil özelliği
+        [Required(ErrorMessage = "Lütfen bir dil kodu giriniz (Örn: tr, en)")]
+        public string Language { get; set; }
         public string? Name { get; set; }
         public string? ShortDescription { get; set; }
         public string? LongDescription { get; set; }

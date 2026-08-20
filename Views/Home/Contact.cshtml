@@ -1,3 +1,19 @@
+@using Microsoft.Extensions.Caching.Memory
+@using DengeWeb.Data
+@using DengeWeb.Models
+@inject IMemoryCache _cache
+@inject ApplicationDbContext _context
+
+@{
+    // Cache'de veri var mı diye kontrol ediyoruz
+    if (!_cache.TryGetValue("SiteSettingsCache", out SiteSetting siteSettings))
+    {
+        // Yoksa veritabanından çek ve Cache'e at (boş gelme ihtimaline karşı yeni bir instance oluşturduk)
+        siteSettings = _context.SiteSettings.FirstOrDefault() ?? new SiteSetting();
+        _cache.Set("SiteSettingsCache", siteSettings, TimeSpan.FromDays(1));
+    }
+}
+
 @model DengeWeb.Models.ContactViewModel
 @{ ViewData["Title"] = "İletişim"; }
 
@@ -222,7 +238,8 @@
             <div class="card-body p-0">
                 <!-- iframe içine Küçükbakkalköy, İstanbul koordinatları eklenmiştir -->
                 <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d188.24509594838628!2d29.109954082124176!3d40.98319896401035!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cac63b879c3587%3A0x63c0c8c1ae455ae9!2zS8O8w6fDvGtiYWtrYWxrw7Z5LCBEZXJlYmV5IFNvay4gTm86NiwgMzQ3NTAgQXRhxZ9laGlyL8Swc3RhbmJ1bA!5e0!3m2!1str!2str!4v1786694668171!5m2!1str!2str" 
+                    <!--src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d188.24509594838628!2d29.109954082124176!3d40.98319896401035!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cac63b879c3587%3A0x63c0c8c1ae455ae9!2zS8O8w6fDvGtiYWtrYWxrw7Z5LCBEZXJlYmV5IFNvay4gTm86NiwgMzQ3NTAgQXRhxZ9laGlyL8Swc3RhbmJ1bA!5e0!3m2!1str!2str!4v1786694668171!5m2!1str!2str"-->
+                    src="@siteSettings.GoogleMapEmbedUrl"
                     width="100%" 
                     height="400" 
                     style="border:0; border-radius: 0.375rem;" 
