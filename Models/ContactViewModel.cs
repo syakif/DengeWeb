@@ -20,4 +20,6 @@ public class ContactViewModel
 
     [Required(ErrorMessage = "Lütfen mesajınızı yazınız.")]
     public string Message { get; set; }
+
+    public SiteSetting SiteSettings { get; set; }
 }

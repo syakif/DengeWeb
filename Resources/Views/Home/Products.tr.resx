@@ -125,4 +125,8 @@
     <value>Detaylı teknik özellikleri ve saha kullanım senaryolarını incelemek için ürün sayfasına gidiniz.</value>
     <comment/>
   </data>
+  <data name="ProductsSeeDetails" xml:space="preserve">
+    <value>DETAYLARI İNCELE</value>
+    <comment/>
+  </data>
 </root>

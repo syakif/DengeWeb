@@ -162,7 +162,7 @@
     <comment/>
   </data>
   <data name="ContactSubjectPH" xml:space="preserve">
-    <value>Specify the topic</value>
+    <value>Specify the subject</value>
     <comment/>
   </data>
   <data name="ContactMessagePH" xml:space="preserve">
@@ -171,6 +171,18 @@
   </data>
   <data name="ContactSendButton" xml:space="preserve">
     <value>Send</value>
+    <comment/>
+  </data>
+  <data name="ContactSuccessMessage" xml:space="preserve">
+    <value>Your message has been successfully sent!</value>
+    <comment/>
+  </data>
+  <data name="ContactErrorMessage" xml:space="preserve">
+    <value>Unfortunately, an error occurred during the process.</value>
+    <comment/>
+  </data>
+  <data name="ContactPhoneFormatMsg" xml:space="preserve">
+    <value>Please enter a valid phone number (only digits and the + sign).</value>
     <comment/>
   </data>
 </root>

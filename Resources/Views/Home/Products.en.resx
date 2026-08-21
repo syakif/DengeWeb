@@ -125,4 +125,8 @@
     <value>Visit the product page to view detailed technical specifications and field usage scenarios.</value>
     <comment/>
   </data>
+  <data name="ProductsSeeDetails" xml:space="preserve">
+    <value>SEE DETAILS</value>
+    <comment/>
+  </data>
 </root>

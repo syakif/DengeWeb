@@ -173,4 +173,20 @@
     <value>Gönder</value>
     <comment/>
   </data>
+  <data name="ContactSuccessMessage" xml:space="preserve">
+    <value>Mesajınız başarıyla gönderildi!</value>
+    <comment/>
+  </data>
+  <data name="ContactErrorMessage" xml:space="preserve">
+    <value>Maalesef işlem sırasında bir hata oluştu.</value>
+    <comment/>
+  </data>
+  <data name="ContactPhoneFormatMsg" xml:space="preserve">
+    <value>Lütfen geçerli bir telefon numarası giriniz (Sadece rakamlar ve + işareti)</value>
+    <comment/>
+  </data>
+  <data name="ContactEmailFormatMsg" xml:space="preserve">
+    <value>f</value>
+    <comment/>
+  </data>
 </root>

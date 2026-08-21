@@ -326,19 +326,34 @@
                         <li class="nav-item"><a class="nav-link fw-bold px-4" asp-controller="Home" asp-action="Contact">@Localizer["HeaderContact"]</a></li>
                     </ul>
                 </div>
+                <!-- LANGUAGE DROPDOWN -->
                 <div class="nav-item dropdown ms-3">
-    <a class="nav-link dropdown-toggle text-white" href="#" id="langDropdown" role="button" data-bs-toggle="dropdown">
-        <i class="fas fa-globe"></i>
+    <a class="nav-link dropdown-toggle fw-bold text-white d-flex align-items-center gap-2" href="#" id="langDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        
+        <!-- SEÇİLİ OLAN DİLİN BAYRAĞI VE METNİ -->
+        @if (currentLang == "tr")
+        {
+            <img src="/images/tr.png" alt="TR" width="20" class="rounded-1">
+            <span>TR</span>
+        }
+        else
+        {
+            <img src="/images/gb.png" alt="EN" width="20" class="rounded-1">
+            <span>EN</span>
+        }
     </a>
-    <ul class="dropdown-menu">
+    
+    <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="langDropdown">
         <li>
-            <a class="dropdown-item" asp-controller="Language" asp-action="Change" asp-route-culture="tr" asp-route-returnUrl="@Context.Request.Path">
-                Türkçe (TR)
+            <a class="dropdown-item d-flex align-items-center gap-2 py-2" asp-controller="Language" asp-action="Change" asp-route-culture="tr" asp-route-returnUrl="@Context.Request.Path">
+                <img src="/images/tr.png" alt="TR" width="20" class="rounded-1"> 
+                <span class="fw-medium">Türkçe (TR)</span>
             </a>
         </li>
         <li>
-            <a class="dropdown-item" asp-controller="Language" asp-action="Change" asp-route-culture="en" asp-route-returnUrl="@Context.Request.Path">
-                English (EN)
+            <a class="dropdown-item d-flex align-items-center gap-2 py-2" asp-controller="Language" asp-action="Change" asp-route-culture="en" asp-route-returnUrl="@Context.Request.Path">
+                <img src="/images/gb.png" alt="EN" width="20" class="rounded-1"> 
+                <span class="fw-medium">English (EN)</span>
             </a>
         </li>
     </ul>
@@ -368,7 +383,7 @@
     }
 
     <!-- Footer Başlangıcı -->
-    <footer class="custom-footer">
+    <footer class="custom-footer" style="border-top: 2px solid rgba(255,255,255,0.1);">
         <div class="container">
             <div class="row mb-5">
                 

@@ -121,4 +121,8 @@
     <value>Ürünlerimiz</value>
     <comment/>
   </data>
+  <data name="IndexProductSliderButtonText" xml:space="preserve">
+    <value>Daha Fazla</value>
+    <comment/>
+  </data>
 </root>

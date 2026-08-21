@@ -114,20 +114,37 @@ public class HomeController : Controller
 
     
 
-    public IActionResult Contact() => View();
+    // --- 1. GET METODU (Sayfa İlk Açıldığında Çalışır) ---
+public IActionResult Contact()
+{
+    // O anki dili bul (tr veya en)
+    string currentLang = System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+    
+    // Veritabanından geçerli dilin ayarlarını çek
+    var currentSettings = _context.SiteSettings.FirstOrDefault(s => s.Language == currentLang);
 
-    [HttpPost]
+    // ViewModel'i oluştur ve ayarları içine koyarak sayfaya gönder
+    var viewModel = new ContactViewModel
+    {
+        SiteSettings = currentSettings
+    };
+
+    return View(viewModel);
+}
+
+[HttpPost]
 public async Task<IActionResult> Contact(ContactViewModel formModel)
 {
+    // MVC'nin formda olmayan SiteSettings'i doğrulamasını engelliyoruz
+    ModelState.Remove("SiteSettings");
+
     if (ModelState.IsValid)
     {
         try
         {
-            // 1. ADIM: EŞLEŞTİRME (MAPPING) VE VERİTABANINA KAYIT
-            // Kullanıcıdan gelen ViewModel'i alıp, veritabanına yazılacak olan Entity sınıfına aktarıyoruz.
+            // 1. ADIM: EŞLEŞTİRME VE VERİTABANINA KAYIT
             var dbMessage = new ContactMessage 
             {
-                // Sol taraf SQL tablosu kolonları <-- Sağ taraf kullanıcının girdiği form verileri
                 AdSoyad = formModel.FullName,
                 Eposta = formModel.Email,
                 Telefon = formModel.Phone,
@@ -138,26 +155,27 @@ public async Task<IActionResult> Contact(ContactViewModel formModel)
                 IsRead = false
             };
             
-            // Veriyi SQL'e ekle ve kaydet
             _context.ContactMessages.Add(dbMessage);
             await _context.SaveChangesAsync();
 
             // 2. ADIM: E-POSTA GÖNDERME
-            // Mevcut MailService'in ContactViewModel beklediği için doğrudan formModel'i veriyoruz.
             await _mailService.SendEmailAsync(formModel);
 
-            // Başarı mesajını verip sayfayı yenile
-            TempData["SuccessMessage"] = "Mesajınız başarıyla gönderildi. En kısa sürede dönüş yapılacaktır.";
+            // DÜZELTİLEN KISIM: İsimler HTML ile tam uyumlu hale getirildi
+            TempData["MailStatus"] = "success"; 
             return RedirectToAction("Contact");
         }
         catch (Exception ex)
         {
-            // İstersen hatayı console'a yazdırabilirsin
-            TempData["ErrorMessage"] = "İşlem sırasında bir hata oluştu. Lütfen daha sonra tekrar deneyin.";
+            // DÜZELTİLEN KISIM
+            TempData["MailStatus"] = "error"; 
         }
     }
     
-    // Model doğrulaması (Required kuralları) başarısız olursa, formu kullanıcının girdiği bilgilerle geri yükle
+    // Model doğrulaması (Required kuralları) başarısız olursa formu geri yükle
+    string currentLang = System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+    formModel.SiteSettings = _context.SiteSettings.FirstOrDefault(s => s.Language == currentLang);
+    
     return View(formModel);
 }
 
