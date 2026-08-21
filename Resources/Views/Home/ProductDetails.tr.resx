@@ -117,60 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ContactTitle" xml:space="preserve">
-    <value>Contact</value>
+  <data name="PDBack" xml:space="preserve">
+    <value>Ürünlere Dön</value>
     <comment/>
   </data>
-  <data name="ContactForm" xml:space="preserve">
-    <value>Contact Form</value>
+  <data name="PDOverview" xml:space="preserve">
+    <value>Genel Bakış</value>
     <comment/>
   </data>
-  <data name="ContactUs" xml:space="preserve">
-    <value>Contact Us</value>
+  <data name="PDBrochure" xml:space="preserve">
+    <value>ÜRÜN BROŞÜRÜNÜ İNDİR</value>
     <comment/>
   </data>
-  <data name="ContactNameSurname" xml:space="preserve">
-    <value>Name Surname</value>
-    <comment/>
-  </data>
-  <data name="ContactEmail" xml:space="preserve">
-    <value>E-MAIL</value>
-    <comment/>
-  </data>
-  <data name="ContactPhone" xml:space="preserve">
-    <value>Phone</value>
-    <comment/>
-  </data>
-  <data name="ContactSubject" xml:space="preserve">
-    <value>Subject</value>
-    <comment/>
-  </data>
-  <data name="ContactMessage" xml:space="preserve">
-    <value>Message</value>
-    <comment/>
-  </data>
-  <data name="ContactNameSurnamePH" xml:space="preserve">
-    <value>Enter your first and last name</value>
-    <comment/>
-  </data>
-  <data name="ContactEmailPH" xml:space="preserve">
-    <value>Enter your email address</value>
-    <comment/>
-  </data>
-  <data name="ContactPhonePH" xml:space="preserve">
-    <value>Enter your phone number</value>
-    <comment/>
-  </data>
-  <data name="ContactSubjectPH" xml:space="preserve">
-    <value>Specify the topic</value>
-    <comment/>
-  </data>
-  <data name="ContactMessagePH" xml:space="preserve">
-    <value>Enter any details you'd like to share...</value>
-    <comment/>
-  </data>
-  <data name="ContactSendButton" xml:space="preserve">
-    <value>Send</value>
+  <data name="PDGallery" xml:space="preserve">
+    <value>Galeri</value>
     <comment/>
   </data>
 </root>

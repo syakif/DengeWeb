@@ -2,7 +2,8 @@
 
 <h2>Yeni Dil Ayarı Ekle</h2>
 
-<form asp-action="Create" method="post" class="mt-4">
+<!-- DİKKAT: Dosya yükleme işlemi için enctype="multipart/form-data" eklendi -->
+<form asp-action="Create" method="post" class="mt-4" enctype="multipart/form-data">
     <input type="hidden" asp-for="Id" />
     
     <!-- SEKME BAŞLIKLARI -->
@@ -59,18 +60,36 @@
         <!-- 2. LOGOLAR & MEDYA TAB'I -->
         <div class="tab-pane fade" id="gorsel">
             <div class="row">
-                <div class="col-md-6 mb-3"><label>Header Logosu</label><input asp-for="HeaderLogoUrl" class="form-control" /></div>
-                <div class="col-md-6 mb-3"><label>Header Beyaz Logo</label><input asp-for="HeaderWhiteLogoUrl" class="form-control" /></div>
-                <div class="col-md-6 mb-3"><label>Footer Logosu</label><input asp-for="FooterLogoUrl" class="form-control" /></div>
-                <div class="col-md-6 mb-3"><label>Favicon</label><input asp-for="FaviconUrl" class="form-control" /></div>
-                <div class="col-12 mb-3"><label>Footer Telif Hakkı Yazısı (Copyright)</label><input asp-for="FooterCopyrightText" class="form-control" /></div>
+                <div class="col-md-6 mb-3">
+                    <label>Header Logosu</label>
+                    <input type="file" name="headerLogoUpload" class="form-control" accept="image/*" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Header Beyaz Logo</label>
+                    <input type="file" name="headerWhiteLogoUpload" class="form-control" accept="image/*" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Footer Logosu</label>
+                    <input type="file" name="footerLogoUpload" class="form-control" accept="image/*" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Favicon</label>
+                    <input type="file" name="faviconUpload" class="form-control" accept="image/*" />
+                </div>
+                <div class="col-12 mb-3">
+                    <label>Footer Telif Hakkı Yazısı (Copyright)</label>
+                    <input asp-for="FooterCopyrightText" class="form-control" />
+                </div>
             </div>
         </div>
 
         <!-- 3. ANA SAYFA TAB'I -->
         <div class="tab-pane fade" id="anasayfa">
             <div class="row">
-                <div class="col-md-12 mb-3"><label>Ana Sayfa Video URL (Arkaplan)</label><input asp-for="IndexStockVideoUrl" class="form-control" /></div>
+                <div class="col-md-12 mb-3">
+                    <label>Ana Sayfa Video (Arkaplan)</label>
+                    <input type="file" name="indexStockVideoUpload" class="form-control" accept="video/*" />
+                </div>
                 <div class="col-md-6 mb-3"><label>Giriş Başlığı</label><input asp-for="IndexEntryTitle" class="form-control" /></div>
                 <div class="col-md-6 mb-3"><label>Giriş Alt Metni</label><input asp-for="IndexEntryDescription" class="form-control" /></div>
                 
@@ -78,7 +97,10 @@
                 <div class="col-md-6 mb-3"><label>Başlık</label><input asp-for="IndexAboutTitle" class="form-control" /></div>
                 <div class="col-md-6 mb-3"><label>Buton Yazısı</label><input asp-for="IndexAboutButtonText" class="form-control" /></div>
                 <div class="col-12 mb-3"><label>Özet Açıklama</label><textarea asp-for="IndexAboutDescription" class="form-control" rows="3"></textarea></div>
-                <div class="col-12 mb-3"><label>Görsel URL</label><input asp-for="IndexAboutImageUrl" class="form-control" /></div>
+                <div class="col-12 mb-3">
+                    <label>Hakkımızda Görseli</label>
+                    <input type="file" name="indexAboutImageUpload" class="form-control" accept="image/*" />
+                </div>
 
                 <h5 class="mt-4 border-bottom pb-2">Ana Sayfa - İletişim Kısmı (CTA)</h5>
                 <div class="col-md-4 mb-3"><label>Başlık</label><input asp-for="IndexContactTitle" class="form-control" /></div>
@@ -95,14 +117,20 @@
                 <div class="col-12 mb-3"><label>Ana Açıklama Metni</label><textarea asp-for="AboutDescription" class="form-control" rows="4"></textarea></div>
                 
                 <div class="col-md-6 mb-3"><label>Misyon & Vizyon Başlık</label><input asp-for="AboutMissionVisionTitle" class="form-control" /></div>
-                <div class="col-md-6 mb-3"><label>Misyon Görsel URL</label><input asp-for="AboutMissionVisionImageUrl" class="form-control" /></div>
+                <div class="col-md-6 mb-3">
+                    <label>Misyon Görseli</label>
+                    <input type="file" name="aboutMissionVisionImageUpload" class="form-control" accept="image/*" />
+                </div>
                 <div class="col-12 mb-3"><label>Misyon & Vizyon Açıklama</label><textarea asp-for="AboutMissionVisionDescription" class="form-control" rows="3"></textarea></div>
                 
                 <div class="col-md-6 mb-3"><label>Etik Değerler Başlık</label><input asp-for="AboutEthicalValuesTitle" class="form-control" /></div>
                 <div class="col-md-6 mb-3"><label>Değerlerimiz Başlık</label><input asp-for="AboutValuesTitle" class="form-control" /></div>
                 <div class="col-12 mb-3"><label>Etik Değerler Metni</label><textarea asp-for="AboutEthicalValuesDescription" class="form-control" rows="3"></textarea></div>
                 <div class="col-12 mb-3"><label>Değerlerimiz Metni</label><textarea asp-for="AboutValuesDescription" class="form-control" rows="3"></textarea></div>
-                <div class="col-12 mb-3"><label>Değerlerimiz Görsel URL</label><input asp-for="AboutValuesImageUrl" class="form-control" /></div>
+                <div class="col-12 mb-3">
+                    <label>Değerlerimiz Görseli</label>
+                    <input type="file" name="aboutValuesImageUpload" class="form-control" accept="image/*" />
+                </div>
             </div>
         </div>
     </div>

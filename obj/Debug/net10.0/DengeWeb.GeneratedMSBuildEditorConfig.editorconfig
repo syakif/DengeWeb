@@ -139,6 +139,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Resources\Views\Home\Index.tr.resx
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Administrator.MSTPC/Desktop/Projects/DengeWeb/Resources/Views/Home/ProductDetails.en.resx]
+build_metadata.AdditionalFiles.TargetPath = Resources\Views\Home\ProductDetails.en.resx
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Administrator.MSTPC/Desktop/Projects/DengeWeb/Resources/Views/Home/ProductDetails.tr.resx]
+build_metadata.AdditionalFiles.TargetPath = Resources\Views\Home\ProductDetails.tr.resx
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Administrator.MSTPC/Desktop/Projects/DengeWeb/Resources/Views/Home/Products.en.resx]
 build_metadata.AdditionalFiles.TargetPath = Resources\Views\Home\Products.en.resx
 build_metadata.AdditionalFiles.CssScope = 

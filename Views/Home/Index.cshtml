@@ -178,7 +178,7 @@
 
             <!-- SAĞ KOLON: Başlık, Yazı ve Solid Beyaz Buton -->
             <!-- col-md-7 ile sağ kolona biraz daha fazla yer verdik -->
-            <div class="col-md-7 ps-md-5" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+            <div class="col-md-7 ps-md-5" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200">
                 
                 <!-- Sadece HAKKIMIZDA yazan beyaz başlık -->
                 <h2 class="fw-bold mb-4 text-white" style="letter-spacing: 2px; font-size: 2.5rem; text-transform: uppercase;">
@@ -217,19 +217,58 @@
     </div>
 </section>
 
+<!-- İŞTE BURASI: İki bölümü ayıran tam genişlikte, %10 opaklıkta transparan beyaz çizgi -->
+<!-- İki bölümü ayıran ultra ince (1px) çizgi -->
+<!--<div style="height: 1px; background-color: rgba(255, 255, 255, 0.1); width: 100%;"></div>-->
+
 <!-- 4. İletişim / Call to Action Alanı -->
-<!-- Taslaktaki "beyaz, çok hafif gri arkaplan" notuna uygun #f8f9fa arka planı verildi -->
-<section class="py-5 mb-5" style="background-color: #f8f9fa;" data-aos="fade-up" data-aos-duration="1000">
-    <div class="container text-center py-5">
-        <h2 class="fw-bold mb-2" style="color: #001f54; letter-spacing: 2px;">@Model.SiteSettings.IndexContactTitle</h2>
-        <h4 class="text-muted mb-4 fw-light">@Model.SiteSettings.IndexContactSubtitle</h4>
-        <p class="mb-5 w-50 mx-auto text-secondary">
+
+<!-- Lacivert Arka Plan ve Genişletilmiş İç Boşluk (padding: 100px 0) -->
+<section class="contact-cta-section text-center text-white" style="background-color: #001f54; border-top: 2px solid rgba(255,255,255,0.1); padding: 150px 0;">
+    <div class="container">
+        
+        <!-- Başlık ve Metinler (Beyaz) -->
+        <!-- Çeviri anahtarlarını kendi kullandığın isimlere göre (örn: ContactTitle) değiştirebilirsin -->
+        <h2 class="fw-bold mb-3" style="letter-spacing: 2px;" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="100">@Model.SiteSettings.IndexContactTitle</h2>
+        <p class="fs-4 mb-4" style="color: #d1d5db;" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200">@Model.SiteSettings.IndexContactSubtitle</p>
+        <p class="mb-5 mx-auto" style="max-width: 800px; color: #9ca3af;" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="300">
             @Model.SiteSettings.IndexContactDescription
         </p>
-        <!-- Ovalleştirilmiş, belirgin "İletişim" butonu -->
-        <a asp-controller="Home" asp-action="Contact" class="btn btn-dark btn-lg px-5 py-3 shadow-sm" style="border-radius: 50px; font-weight: 600; letter-spacing: 1px;">
-            @Model.SiteSettings.IndexContactButtonText
+
+        <style>
+    /* Butonun varsayılan görünümü */
+    .btn-custom-contact {
+        background-color: #ffffff;
+        color: #06142E !important; /* Yazı rengi kurumsal lacivertimiz */
+        border: 2px solid #ffffff; /* Senin gönderdiğin koddaki gibi 2px sınır */
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+    }
+
+    /* İSTEDİĞİN YENİ HOVER EFEKTİ */
+    .btn-custom-contact:hover {
+        background-color: #e0e5ec; /* Hafif gümüş/gri */
+        color: #06142E !important; /* Yazı lacivert kalmaya devam eder */
+        border-color: #e0e5ec;
+        transform: translateY(-3px); /* Havaya kalkma hissi */
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2); /* Kalktığında oluşan gölge */
+    }
+
+    /* Okun sağa kayma animasyonunu tutmak istersen bu kısmı bırakabilirsin */
+    .btn-custom-contact i {
+        transition: transform 0.3s ease;
+    }
+    .btn-custom-contact:hover i {
+        transform: translateX(8px);
+    }
+</style>
+
+        <!-- Beyaz Köşeli Buton ve Sol Ok -->
+        <a asp-controller="Home" asp-action="Contact" class="btn btn-custom-contact fw-bold rounded-0 px-5 py-3 shadow-sm" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="400">
+            @Model.SiteSettings.IndexContactButtonText <i class="fas fa-arrow-right ms-2"></i>
         </a>
+        
     </div>
 </section>
 

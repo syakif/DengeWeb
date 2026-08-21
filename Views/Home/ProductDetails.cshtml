@@ -21,7 +21,7 @@
 <div class="row mb-5" data-aos="fade-right" data-aos-duration="800">
     <div class="col-12">
         <a asp-action="Products" class="text-decoration-none text-muted mb-3 d-inline-block" style="font-size: 0.9rem;">
-            <i class="fas fa-arrow-left me-2"></i> Ürünlere Dön
+            <i class="fas fa-arrow-left me-2"></i> @Localizer["PDBack"]
         </a>
         <h1 class="fw-bold display-5" style="color: #001f54; letter-spacing: 1px;">@Model.Name</h1>
         <!-- Başlığın altına şık, kısa bir lacivert çizgi -->
@@ -43,13 +43,13 @@
         <!-- PDF İndir Butonu (Tam Genişlik) -->
         <!-- href kısmına wwwroot/pdfs/ klasörüne atacağın pdf'in yolunu vereceksin -->
         <a href="/wutheringheights01bron_0.pdf" target="_blank" class="btn btn-outline-dark w-100 py-3 fw-bold d-flex align-items-center justify-content-center" style="border-radius: 0; letter-spacing: 1px; transition: all 0.3s;">
-            <i class="fas fa-file-pdf me-2 text-danger" style="font-size: 1.3rem;"></i> ÜRÜN BROŞÜRÜNÜ İNDİR
+            <i class="fas fa-file-pdf me-2 text-danger" style="font-size: 1.3rem;"></i> @Localizer["PDBrochure"]
         </a>
     </div>
 
     <!-- SAĞ KOLON: Tanıtım Yazısı -->
     <div class="col-md-7 px-md-5" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-        <h4 class="fw-bold mb-4" style="color: #333;">Genel Bakış</h4>
+        <h4 class="fw-bold mb-4" style="color: #333;">@Localizer["PDOverview"]</h4>
         
         <!-- Dinamik Gelen Açıklama -->
         <p class="text-muted" style="line-height: 1.8; font-size: 1.1rem;">
@@ -81,7 +81,7 @@
         <!-- Başlık (Ayrı satırda tuttuk ki 5'li düzene karışmasın) -->
         <div class="row mt-5 pt-4 border-top" data-aos="fade-up" data-aos-duration="1000">
             <div class="col-12 mb-3">
-                <h4 class="fw-bold" style="color: #001f54;">Galeri</h4>
+                <h4 class="fw-bold" style="color: #001f54;">@Localizer["PDGallery"]</h4>
             </div>
         </div>
 
