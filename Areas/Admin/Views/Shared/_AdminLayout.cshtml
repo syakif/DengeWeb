@@ -4,37 +4,164 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Denge Defence - Yönetim Paneli</title>
+    
+    <!-- Bootstrap ve FontAwesome -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <!-- Özel Font: Playfair Display -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    
     <style>
-        body { background-color: #f8f9fa; }
-        .sidebar { min-height: 100vh; background-color: #001f54; color: white; padding-top: 20px;}
-        .sidebar a { color: #adb5bd; text-decoration: none; padding: 10px 20px; display: block;}
-        .sidebar a:hover, .sidebar a.active { color: white; background-color: #343a40;}
-        .content-area { padding: 30px; }
+        body { 
+            background-color: #f8f9fa; 
+            margin: 0; 
+        }
+
+        /* Sidebar Ana Taşıyıcı */
+        .custom-sidebar {
+            width: 280px;
+            height: 100vh;
+            background-color: #242526;
+            display: flex;
+            flex-direction: column;
+            padding: 24px 20px;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+            left: 0;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            z-index: 1000;
+        }
+
+        /* Header (Logo ve Başlık) */
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .sidebar-logo {
+            height: 80px; /* Logonu tasarıma uygun boyuta çektim */
+            object-fit: contain;
+            margin-bottom: 12px;
+        }
+
+        .sidebar-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 0;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+        }
+
+        /* Menü Listesi */
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* Menü Butonları */
+        .menu-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #a1a1aa;
+            padding: 14px 16px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .menu-link i {
+            font-size: 1.1rem;
+            width: 35px;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        /* Hover Durumu */
+        .menu-link:hover, .menu-link.active {
+            background-color: #3f3f46;
+            color: #ffffff;
+        }
+
+        /* Footer (Çıkış Yap) - Alta iter ve çizgi çeker */
+        .sidebar-footer {
+            margin-top: auto; 
+            border-top: 1px solid #3f3f46;
+            padding-top: 20px;
+        }
+
+        /* Sağ İçerik Alanı (Sidebar'ın genişliği kadar sağa itildi) */
+        .content-area {
+            margin-left: 280px; 
+            padding: 30px;
+            min-height: 100vh;
+        }
     </style>
 </head>
 <body>
-    <div class="d-flex">
-        <!-- Sol Kenar Çubuğu -->
-        <div class="sidebar" style="width: 250px;">
-            <div class="d-flex align-items-center mb-2">
-                <img src="/images/ddlogonobg.png" alt="Denge Defence Logo" style="height: 120px; margin-right: 15px; object-fit: contain;">
-            </div>
-            <h2 class="h5 text-white mb-4 mx-auto" style="letter-spacing: 1px;">Yönetim Paneli</h2>
-            <div style="height: 1px; background-color: rgb(164, 163, 163); width: 100%;"></div>
-            <a href="/Admin/Message/Index"><i class="fas fa-envelope me-2"></i> Gelen Mesajlar</a>
-            <a href="/Admin/Product/Index"><i class="fas fa-box me-2"></i> Ürün Yönetimi</a>
-            <a href="/Admin/SiteSetting/Index"><i class="fas fa-cogs me-2"></i> Site Ayarları</a>
-            <a href="/" target="_blank"><i class="fas fa-globe me-2"></i> Siteyi Görüntüle</a>
-            <a href="/Admin/Auth/Logout" class="text-danger mt-5"><i class="fas fa-sign-out-alt me-2"></i> Çıkış Yap</a>
+
+    <!-- Sol Kenar Çubuğu (Sidebar) -->
+    <aside class="custom-sidebar">
+        
+        <div class="sidebar-header">
+            <img src="/images/ddlogonobg.png" alt="Denge Defence Logo" class="sidebar-logo">
+            <h3 class="sidebar-title">Yönetim Paneli</h3>
         </div>
 
-        <!-- Sağ İçerik Alanı -->
-        <div class="flex-grow-1 content-area">
-            @RenderBody()
+        <ul class="sidebar-menu">
+            <li>
+                <a href="/Admin/Message/Index" class="menu-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Gelen Mesajlar</span>
+                </a>
+            </li>
+            <li>
+                <a href="/Admin/Product/Index" class="menu-link">
+                    <i class="fas fa-box"></i>
+                    <span>Ürün Yönetimi</span>
+                </a>
+            </li>
+            <li>
+                <a href="/Admin/SiteSetting/Index" class="menu-link">
+                    <i class="fas fa-cogs"></i>
+                    <span>Site Ayarları</span>
+                </a>
+            </li>
+            <li>
+                <a href="/" target="_blank" class="menu-link">
+                    <i class="fas fa-globe"></i>
+                    <span>Siteyi Görüntüle</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <!-- Çıkış yap butonuna kırmızı renk (text-danger) uymazsa silip standart gri/beyaz bırakabilirsin -->
+            <a href="/Admin/Auth/Logout" class="menu-link text-danger">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Çıkış Yap</span>
+            </a>
         </div>
+        
+    </aside>
+
+    <!-- Sağ İçerik Alanı -->
+    <div class="content-area">
+        @RenderBody()
     </div>
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
