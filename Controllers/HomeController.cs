@@ -17,13 +17,15 @@ public class HomeController : Controller
     private readonly IMemoryCache _cache; // Cache servisini çağırıyoruz
 
     private readonly ApplicationDbContext _context;
+    private readonly ILogger<HomeController> _logger;
 
-    public HomeController(IMailService mailService, IConfiguration config, IMemoryCache cache, ApplicationDbContext context)
+    public HomeController(IMailService mailService, IConfiguration config, IMemoryCache cache, ApplicationDbContext context, ILogger<HomeController> logger)
     {
         _mailService = mailService;
         _config = config;
         _cache = cache;
         _context = context;
+        _logger = logger;
     }
 
     public IActionResult Index()
@@ -43,6 +45,8 @@ public class HomeController : Controller
     return View(viewModel);
 }
     
+    [Route("{culture=tr}/hakkimizda")]
+    [Route("{culture=en}/about")]
     // About metodu artık dinamik veri yolluyor
     public IActionResult About()
     {
@@ -63,6 +67,8 @@ public class HomeController : Controller
         return View(siteSettings); // İster DTO olsun ister devasa bir model, RAM'den geldiği için maliyet SIFIRDIR.
     }
 
+    [Route("{culture=en}/products")]
+    [Route("{culture=tr}/urunlerimiz")]
     // --- ÜRÜNLERİMİZ SAYFASI ---
     public IActionResult Products()
 {
@@ -85,7 +91,8 @@ public class HomeController : Controller
         return View(products);
     }
 
-
+        [Route("{culture=tr}/urun-detay/{id}")]
+        [Route("{culture=en}/product-details/{id}")]
         public IActionResult ProductDetails(int id)
         {
             // 1. Yine sitenin mevcut ayarlarını (dilini) Cache'den çağırıyoruz
@@ -114,12 +121,14 @@ public class HomeController : Controller
 
     
 
+    [Route("{culture=tr}/iletisim")]
+    [Route("{culture=en}/contact")]
     // --- 1. GET METODU (Sayfa İlk Açıldığında Çalışır) ---
 public IActionResult Contact()
 {
     // O anki dili bul (tr veya en)
     string currentLang = System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
-    
+
     // Veritabanından geçerli dilin ayarlarını çek
     var currentSettings = _context.SiteSettings.FirstOrDefault(s => s.Language == currentLang);
 
@@ -133,6 +142,8 @@ public IActionResult Contact()
 }
 
 [HttpPost]
+[Route("{culture=tr}/iletisim")]
+[Route("{culture=en}/contact")]
 public async Task<IActionResult> Contact(ContactViewModel formModel)
 {
     // MVC'nin formda olmayan SiteSettings'i doğrulamasını engelliyoruz
@@ -157,9 +168,11 @@ public async Task<IActionResult> Contact(ContactViewModel formModel)
             
             _context.ContactMessages.Add(dbMessage);
             await _context.SaveChangesAsync();
+            _logger.LogInformation("Contact form mesajı veritabanına kaydedildi. MessageId: {MessageId}", dbMessage.Id);
 
             // 2. ADIM: E-POSTA GÖNDERME
             await _mailService.SendEmailAsync(formModel);
+            _logger.LogInformation("Contact form maili başarıyla gönderildi. MessageId: {MessageId}", dbMessage.Id);
 
             // DÜZELTİLEN KISIM: İsimler HTML ile tam uyumlu hale getirildi
             TempData["MailStatus"] = "success"; 
@@ -167,7 +180,7 @@ public async Task<IActionResult> Contact(ContactViewModel formModel)
         }
         catch (Exception ex)
         {
-            // DÜZELTİLEN KISIM
+            _logger.LogError(ex, "Contact form işlemi başarısız oldu. ExceptionType: {ExceptionType}", ex.GetType().Name);
             TempData["MailStatus"] = "error"; 
         }
     }

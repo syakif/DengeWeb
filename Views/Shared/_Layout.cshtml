@@ -289,6 +289,35 @@
         min-height: 560px; 
     }
 }
+
+/* Mobil Menü Butonu - Kaydırılmış (navbar-scrolled) Header İçin Lacivert Görünüm */
+.navbar-scrolled .navbar-toggler {
+    border-color: rgba(0, 31, 84, 0.3) !important;
+}
+
+.navbar-scrolled .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23001f54' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+@@media (max-width: 991.98px) {
+    /* 1. Şeffaf Mod: Menü açıldığında arkaya kurumsal lacivert karartı atar */
+    .navbar-transparent .navbar-collapse {
+        background-color: rgba(0, 31, 84, 0.95); /* %95 Opak Denge Laciverti */
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-top: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Derinlik katan gölge */
+    }
+
+    /* 2. Beyaz Mod (Aşağı Kaydırıldığında): Garanti olması için arkaya beyaz fon atar */
+    .navbar-scrolled .navbar-collapse {
+        background-color: #ffffff;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-top: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+}
     </style>
 </head>
 <!-- Sayfanın her zaman tam ekran yüksekliğinde olmasını sağlayan flex sınıfları -->
@@ -432,6 +461,8 @@
             </div>
         </div>
     </footer>
+
+
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

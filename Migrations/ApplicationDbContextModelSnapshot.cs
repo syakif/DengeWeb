@@ -22,6 +22,21 @@ namespace DengeWeb.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("DengeWeb.Models.AdminUser", b =>
+                {
+                    b.Property<int>("Id").ValueGeneratedOnAdd().HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Email").HasMaxLength(320).IsRequired().HasColumnType("nvarchar(320)");
+                    b.Property<int>("FailedAttempts").HasColumnType("int");
+                    b.Property<DateTime?>("LockoutEnd").HasColumnType("datetime2");
+                    b.Property<string>("PasswordHash").IsRequired().HasColumnType("nvarchar(max)");
+                    b.Property<string>("ResetToken").HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("ResetTokenExpiry").HasColumnType("datetime2");
+                    b.HasKey("Id");
+                    b.HasIndex("Email").IsUnique();
+                    b.ToTable("AdminUsers");
+                });
+
             modelBuilder.Entity("DengeWeb.Models.ContactMessage", b =>
                 {
                     b.Property<int>("Id")

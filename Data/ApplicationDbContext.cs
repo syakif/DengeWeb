@@ -14,5 +14,16 @@ namespace DengeWeb.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<ContactMessage> ContactMessages { get; set; }
         public DbSet<SiteSetting> SiteSettings { get; set; }
+        public DbSet<AdminUser> AdminUsers { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<AdminUser>(entity =>
+            {
+                entity.Property(x => x.Email).HasMaxLength(320).IsRequired();
+                entity.HasIndex(x => x.Email).IsUnique();
+            });
+        }
     }
 }

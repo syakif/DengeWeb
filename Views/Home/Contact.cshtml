@@ -190,7 +190,7 @@
                 <!-- YENİ BAŞLIK: Formun üstüne alındı, boyutu küçüldü (h3) ve alt çizgisi kaldırıldı -->
                 <h3 class="fw-bold mb-5" style="color: #001f54; letter-spacing: 0.5px;">@Localizer["ContactForm"]</h3>
 
-                <form method="post" asp-action="Contact" method="post">
+                <form asp-controller="Home" asp-action="Contact" method="post">
                     <!-- 1. SATIR: Ad Soyad ve E-Posta -->
                     <div class="row">
                         <!-- AD SOYAD -->
@@ -232,7 +232,7 @@
                         </div>
                     </div>
 
-                    <p class="text-muted" style="font-size: 0.85rem;">abc</p>
+                    <!--<p class="text-muted" style="font-size: 0.85rem;">abc</p>-->
 
                     <!-- GÖNDER BUTONU -->
                     <div class="mt-2 text-start">

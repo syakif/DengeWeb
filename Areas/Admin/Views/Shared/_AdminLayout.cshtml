@@ -156,11 +156,16 @@
         </ul>
 
         <div class="sidebar-footer">
-            <!-- Çıkış yap butonuna kırmızı renk (text-danger) uymazsa silip standart gri/beyaz bırakabilirsin -->
-            <a href="/Admin/Auth/Logout" class="menu-link text-danger">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Çıkış Yap</span>
+            <a asp-area="Admin" asp-controller="Auth" asp-action="ChangePassword" class="menu-link">
+                <i class="fas fa-key"></i>
+                <span>Şifre Değiştir</span>
             </a>
+            <form asp-area="Admin" asp-controller="Auth" asp-action="Logout" method="post">
+                <button type="submit" class="menu-link text-danger border-0 bg-transparent w-100 text-start">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Çıkış Yap</span>
+                </button>
+            </form>
         </div>
         
     </aside>
